@@ -28,7 +28,15 @@ class POIViewController: UIViewController {
         
         centerMapOnWinnipeg()
     }
-
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        displayPOIAnnotationsOnMap()
+    }
+    
+    // MARK: - Helpers
+    
     func centerMapOnWinnipeg() {
         let winnipegCoord = CLLocationCoordinate2D(
             latitude: 49.8672610886807,
@@ -43,4 +51,15 @@ class POIViewController: UIViewController {
         
         mapView.setRegion(viewRegion, animated: false)
     }
+    
+    func displayPOIAnnotationsOnMap() {
+        // Get POIs
+        let poiService = POIService.sharedInstance
+        let pois = poiService.pointsOfInterest
+        
+        // Add annotations to map
+        mapView.showAnnotations(pois, animated: true)
+    }
+
+
 }

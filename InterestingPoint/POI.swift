@@ -8,9 +8,9 @@
 
 import MapKit
 
-class POI {
-    var title: String
-    var subtitle: String
+class POI: NSObject, MKAnnotation {
+    var title: String?
+    var subtitle: String?
     var coordinate: CLLocationCoordinate2D
     
     init(
