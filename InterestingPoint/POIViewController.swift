@@ -7,8 +7,15 @@
 //
 
 import UIKit
+import MapKit
 
 class POIViewController: UIViewController {
+    
+    // MARK: - Outlets
+    @IBOutlet weak var mapView: MKMapView!
+    
+    // MARK: - Properties
+    let locationManager = CLLocationManager()
 
     // MARK: - Lifecycle
     
@@ -16,5 +23,24 @@ class POIViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        locationManager.requestWhenInUseAuthorization()
+        
+        centerMapOnWinnipeg()
+    }
+
+    func centerMapOnWinnipeg() {
+        let winnipegCoord = CLLocationCoordinate2D(
+            latitude: 49.8672610886807,
+            longitude: -97.1576372488644
+        )
+        
+        let viewRegion = MKCoordinateRegionMakeWithDistance(
+            winnipegCoord,
+            60000,
+            60000
+        )
+        
+        mapView.setRegion(viewRegion, animated: false)
     }
 }

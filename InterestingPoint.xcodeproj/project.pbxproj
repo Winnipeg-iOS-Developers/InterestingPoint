@@ -10,6 +10,7 @@
 		000E21281C8B89A3008259E3 /* POI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000E21261C8B89A3008259E3 /* POI.swift */; };
 		000E21291C8B89A3008259E3 /* POIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000E21271C8B89A3008259E3 /* POIService.swift */; };
 		000E21301C8B89FD008259E3 /* POIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000E212F1C8B89FD008259E3 /* POIViewController.swift */; };
+		000E21331C8B90B0008259E3 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 000E21311C8B9081008259E3 /* MapKit.framework */; };
 		004187A11C88DE9300CAEFFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004187A01C88DE9300CAEFFD /* AppDelegate.swift */; };
 		004187A61C88DE9300CAEFFD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 004187A41C88DE9300CAEFFD /* Main.storyboard */; };
 		004187A81C88DE9300CAEFFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 004187A71C88DE9300CAEFFD /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 		000E21261C8B89A3008259E3 /* POI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POI.swift; sourceTree = "<group>"; };
 		000E21271C8B89A3008259E3 /* POIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POIService.swift; sourceTree = "<group>"; };
 		000E212F1C8B89FD008259E3 /* POIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POIViewController.swift; sourceTree = "<group>"; };
+		000E21311C8B9081008259E3 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		0041879D1C88DE9300CAEFFD /* InterestingPoint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InterestingPoint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		004187A01C88DE9300CAEFFD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		004187A51C88DE9300CAEFFD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -33,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				000E21331C8B90B0008259E3 /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,10 +84,19 @@
 			name = Support;
 			sourceTree = "<group>";
 		};
+		000E21341C8B90E7008259E3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				000E21311C8B9081008259E3 /* MapKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		004187941C88DE9300CAEFFD = {
 			isa = PBXGroup;
 			children = (
 				0041879F1C88DE9300CAEFFD /* InterestingPoint */,
+				000E21341C8B90E7008259E3 /* Frameworks */,
 				0041879E1C88DE9300CAEFFD /* Products */,
 			);
 			sourceTree = "<group>";
@@ -142,6 +154,11 @@
 				TargetAttributes = {
 					0041879C1C88DE9300CAEFFD = {
 						CreatedOnToolsVersion = 7.2.1;
+						SystemCapabilities = {
+							com.apple.Maps.iOS = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
