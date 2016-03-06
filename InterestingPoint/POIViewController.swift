@@ -9,7 +9,13 @@
 import UIKit
 import MapKit
 
-class POIViewController: UIViewController {
+class POIViewController: UIViewController,
+    UITableViewDataSource,
+    UITableViewDelegate,
+    MKMapViewDelegate
+{
+    // MARK: - Dependencies
+    var poiService = POIService.sharedInstance
     
     // MARK: - Outlets
     @IBOutlet weak var mapView: MKMapView!
@@ -58,7 +64,6 @@ class POIViewController: UIViewController {
     
     func displayPOIAnnotationsOnMap() {
         // Get POIs
-        let poiService = POIService.sharedInstance
         let pois = poiService.pointsOfInterest
         
         // Add annotations to map
@@ -76,4 +81,46 @@ class POIViewController: UIViewController {
         mapView.layoutMargins.bottom = tableView.frame.height
     }
 
+    // MARK: - UITableViewDataSource
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return poiService.pointsOfInterest.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("poiCell", forIndexPath: indexPath)
+        
+        let poi = poiService.pointsOfInterest[indexPath.row]
+        
+        cell.textLabel?.text = poi.title
+        cell.detailTextLabel?.text = poi.subtitle
+        
+        return cell
+    }
+    
+    // MARK: - UITableViewDelegate
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
+        let poi = poiService.pointsOfInterest[indexPath.row]
+        mapView.selectAnnotation(poi, animated: true)
+    }
+    
+    // MARK: - MKMapViewDelegate
+    
+    func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
+        guard let selectedPOI = view.annotation as? POI else {
+            print("\(__FUNCTION__): Could not get POI from annotationView.")
+            return
+        }
+        
+        guard let index = poiService.pointsOfInterest.indexOf(selectedPOI) else {
+            print("\(__FUNCTION__): Could not get index of selected POI")
+            return
+        }
+        
+        // Select cell at index
+        let indexPath = NSIndexPath(forRow: index, inSection: 0)
+        tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: .Top)
+    }
 }
