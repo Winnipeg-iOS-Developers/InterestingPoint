@@ -13,6 +13,7 @@ class POIViewController: UIViewController {
     
     // MARK: - Outlets
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var tableView: UITableView!
     
     // MARK: - Properties
     let locationManager = CLLocationManager()
@@ -27,6 +28,8 @@ class POIViewController: UIViewController {
         locationManager.requestWhenInUseAuthorization()
         
         centerMapOnWinnipeg()
+        
+        setupTableView()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -61,5 +64,11 @@ class POIViewController: UIViewController {
         mapView.showAnnotations(pois, animated: true)
     }
 
+    func setupTableView() {
+        // Blur tableView background
+        let visualEffect = UIBlurEffect(style: .Light)
+        let visualEffectView = UIVisualEffectView(effect: visualEffect)
+        tableView.backgroundView = visualEffectView
+    }
 
 }
