@@ -11,6 +11,8 @@ __*NOTE*__: The following steps are not meant to be a full tutorial as I'm lazy 
 - Selecting a POI in the table will highlight the corresponding pin on the map.
 - Selecting a pin on the map will highlight the corresponding POI in the table.
 
+![alt text](./InterestingPointScreenShot.png "InterestingPoint Final Screenshot.")
+
 ### Step 1: Layout Map UI in IB:
 (git tag 1.0) (starting point)
 - Add MapView and constraints to POIViewController in main storyboard. Build and run, doesn't work, inspect console error.
