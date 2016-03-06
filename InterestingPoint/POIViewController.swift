@@ -35,6 +35,7 @@ class POIViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
+        setupMapView()
         displayPOIAnnotationsOnMap()
     }
     
@@ -69,6 +70,10 @@ class POIViewController: UIViewController {
         let visualEffect = UIBlurEffect(style: .Light)
         let visualEffectView = UIVisualEffectView(effect: visualEffect)
         tableView.backgroundView = visualEffectView
+    }
+    
+    func setupMapView() {
+        mapView.layoutMargins.bottom = tableView.frame.height
     }
 
 }
