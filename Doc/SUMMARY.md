@@ -12,12 +12,7 @@
 
 * [How to use snippets with xCode](part2/snippets.md)
 
-## Part III: Notions seen during the presentation
+## Part III: Code Challenge!
 
-* [Optionals](part3/optionals.md)
-* [Lazy initialization](part3/lazy.md)
-
-## Part IV: Code Challenge!
-
-* [Your challenge](part4/intro.md)
-* [The solution](part4/solution.md)
+* [Your challenge](part3/intro.md)
+* [The solution](part3/solution.md)

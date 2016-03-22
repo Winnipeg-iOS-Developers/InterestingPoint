@@ -53,7 +53,7 @@
         data-chapter-title="Step 2: Show Pins on the Map"
         data-filepath="part1/step2.md"
         data-basepath=".."
-        data-revision="Tue Mar 22 2016 15:41:28 GMT-0500 (CDT)"
+        data-revision="Tue Mar 22 2016 15:56:47 GMT-0500 (CDT)"
         data-innerlanguage="">
     
 
@@ -179,46 +179,16 @@
             
         </li>
     
-        <li class="chapter " data-level="7" data-path="part3/optionals.html">
+        <li class="chapter " data-level="7" data-path="part3/intro.html">
             
-                
-                    <a href="../part3/optionals.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>7.</b>
-                        
-                        Optionals
-                    </a>
+            <span><b>7.</b> Your challenge</span>
             
             
         </li>
     
-        <li class="chapter " data-level="8" data-path="part3/lazy.html">
+        <li class="chapter " data-level="8" data-path="part3/solution.html">
             
-                
-                    <a href="../part3/lazy.html">
-                
-                        <i class="fa fa-check"></i>
-                        
-                            <b>8.</b>
-                        
-                        Lazy initialization
-                    </a>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="9" data-path="part4/intro.html">
-            
-            <span><b>9.</b> Your challenge</span>
-            
-            
-        </li>
-    
-        <li class="chapter " data-level="10" data-path="part4/solution.html">
-            
-            <span><b>10.</b> The solution</span>
+            <span><b>8.</b> The solution</span>
             
             
         </li>
@@ -241,6 +211,8 @@
         <div class="body-inner">
             <div class="book-header" role="navigation">
     <!-- Actions Left -->
+    
+    <a href="../GLOSSARY.html" class="btn pull-left" aria-label="Glossary"><i class="fa fa-sort-alpha-asc"></i></a>
     
 
     <!-- Title -->
@@ -269,7 +241,7 @@
     optional public <span class="hljs-keyword">var</span> subtitle: <span class="hljs-type">String</span>? { <span class="hljs-keyword">get</span> }
 }
 </code></pre>
-<p><code>MKAnnotation</code> is a <strong>protocol</strong> with a property <strong>coordinate</strong> and 2 optionals properties: <strong>title</strong> and <strong>subtitle</strong>.</p>
+<p><code>MKAnnotation</code> is a <strong>protocol</strong> with a property <strong>coordinate</strong> and 2 <a href="../GLOSSARY.html#optionals" class="glossary-term" title="An optional in Swift is a variable that can hold either a value or no value. Optionals are written by appending a ? to the type (var myOptionalString:String? = &quot;Hello World&quot; is an optional String)">optionals</a> properties: <strong>title</strong> and <strong>subtitle</strong>.</p>
 <p>Let&apos;s create our own object <code>POI</code> which adopt the <code>MKAnnotation</code> protocol:</p>
 <pre><code class="lang-swift"><span class="hljs-keyword">import</span> MapKit
 
@@ -289,15 +261,15 @@
     }
 }
 </code></pre>
-<p>This is basic, nothing special here, we keep the title and subtitle optionals and we implement the <code>init()</code> method of our class.</p>
+<p>This is basic, nothing special here, we keep the title and subtitle <a href="../GLOSSARY.html#optionals" class="glossary-term" title="An optional in Swift is a variable that can hold either a value or no value. Optionals are written by appending a ? to the type (var myOptionalString:String? = &quot;Hello World&quot; is an optional String)">optionals</a> and we implement the <code>init()</code> method of our class.</p>
 <h6 id="addional-content-this-part-hasnt-be-seend-during-the-presentation">Addional content (this part hasn&apos;t be seend during the presentation)</h6>
 <p>We are going to simulate a service which is providing us the data (points of interest in this case) for our application. There is 2 important notions here: </p>
 <ul>
 <li>Singleton pattern</li>
-<li>Lazy initialization</li>
+<li><a href="../GLOSSARY.html#lazy_initialization" class="glossary-term" title="Apple Documentation: A lazy stored property is a property whose initial value is not calculated until the first time it is used. You indicate a lazy stored property by writing the lazy modifier before its declaration.">Lazy initialization</a></li>
 </ul>
 <p>The <code>Singleton</code> is a pattern which allow us to create a single instance of a specific class. It allow us to be sure that we are always accessing the same instance of the class whenever we will need it, in <code>swift</code> we can perform it by using the <code>static</code> keyword which is defining a <strong>property</strong> or <strong>method</strong> related to the class itself rather than any instantiation of the class.</p>
-<p>The <code>lazy initialization</code> is a memory management feature which allow us to delay a calculation process to the time we will need it, see more in the <a href="../part3/lazy.html">Part III: Notions seen during the presentation</a>.</p>
+<p>The <code>lazy initialization</code> is a memory management feature which allow us to delay a calculation process to the time we will need it, see more in the <a href="../part3/lazy.md">Part III: Notions seen during the presentation</a>.</p>
 <p>So to create our service, we are going to use the <code>Singleton</code> pattern on a new class with a method which is returning an <strong>array</strong> of <code>POI</code>:</p>
 <pre><code class="lang-swift"><span class="hljs-keyword">import</span> CoreLocation
 
