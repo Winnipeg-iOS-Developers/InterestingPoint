@@ -1,3 +1,18 @@
 # Summary
 
-This is a summary of the first Meetup of the Winnipeg iOS Developers: **Swift 2.0 & iOS 9: Building a location-based App: Part 1 of 3**
+## Part I: The project
+
+* [Step 1: Layout Map UI in IB](part1/step1.md)
+* [Step 2: Show Pins on the Map](part1/step2.md)
+* [Step 3: Add UITableView to UI in IB](part1/step3.md)
+* [Step 4: Update MapView's Visible Region](part1/step4.md)
+* [Step 5: Show POIs in TableView](part1/step5.md)
+
+## Part II: Some tips
+
+* [How to use snippets with xCode](part2/snippets.md)
+
+## Part III: Notions seen during the presentation
+
+* [Optionals](part3/optionals.md)
+* [Lazy initialization](part3/lazy.md)
