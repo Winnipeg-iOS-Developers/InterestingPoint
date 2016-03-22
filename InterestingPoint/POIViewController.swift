@@ -78,7 +78,7 @@ class POIViewController: UIViewController,
     }
     
     func setupMapView() {
-        mapView.layoutMargins.bottom = tableView.frame.height
+//        mapView.layoutMargins.bottom = tableView.frame.height
     }
 
     // MARK: - UITableViewDataSource
