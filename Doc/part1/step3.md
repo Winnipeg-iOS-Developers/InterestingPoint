@@ -18,7 +18,7 @@ And don't forget to update the frame if needed (`xCode` will provide a warning i
 
 Also add the component `Table View Cell` to your `Table View` with 2 `UILabel` for the **title** and **subtitle**
 
-Finally we will customize our table view programmatically, add the following to your `POIViewController` within the `viewDidAppear` scope:
+Finally we will customize our table view programmatically, add the following to your `POIViewController` within the `viewDidLoad` scope:
 
 ```swift
 let visualEffect = UIBlurEffect(style: .Light)
