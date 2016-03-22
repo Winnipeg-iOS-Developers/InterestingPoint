@@ -53,7 +53,7 @@
         data-chapter-title="Step 2: Show Pins on the Map"
         data-filepath="part1/step2.md"
         data-basepath=".."
-        data-revision="Tue Mar 22 2016 11:43:53 GMT-0500 (CDT)"
+        data-revision="Tue Mar 22 2016 12:12:23 GMT-0500 (CDT)"
         data-innerlanguage="">
     
 
@@ -256,6 +256,108 @@
 }
 </code></pre>
 <p><code>MKAnnotation</code> is a <strong>protocol</strong> with a property <strong>coordinate</strong> and 2 optionals properties: <strong>title</strong> and <strong>subtitle</strong>.</p>
+<p>Let&apos;s create our own object <code>POI</code> which adopt the <code>MKAnnotation</code> protocol:</p>
+<pre><code class="lang-swift"><span class="hljs-keyword">import</span> MapKit
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">POI</span>: <span class="hljs-title">NSObject</span>, <span class="hljs-title">MKAnnotation</span> </span>{
+    <span class="hljs-keyword">var</span> title: <span class="hljs-type">String</span>?
+    <span class="hljs-keyword">var</span> subtitle: <span class="hljs-type">String</span>?
+    <span class="hljs-keyword">var</span> coordinate: <span class="hljs-type">CLLocationCoordinate2D</span>
+
+    <span class="hljs-keyword">init</span>(
+        title: <span class="hljs-type">String</span>?,
+        subtitle: <span class="hljs-type">String</span>?,
+        coordinate: <span class="hljs-type">CLLocationCoordinate2D</span>)
+    {
+        <span class="hljs-keyword">self</span>.title = title
+        <span class="hljs-keyword">self</span>.subtitle = subtitle
+        <span class="hljs-keyword">self</span>.coordinate = coordinate
+    }
+}
+</code></pre>
+<p>This is basic, nothing special here, we keep the title and subtitle optionals and we implement the <code>init()</code> method of our class.</p>
+<h6 id="addional-content-this-part-hasnt-be-seend-during-the-presentation">Addional content (this part hasn&apos;t be seend during the presentation)</h6>
+<p>We are going to simulate a service which is providing us the data (points of interest in this case) for our application. There is 2 important notions here: </p>
+<ul>
+<li>Singleton pattern</li>
+<li>Lazy initialization</li>
+</ul>
+<p>The <code>Singleton</code> is a pattern which allow us to create a single instance of a specific class. It allow us to be sure that we are always accessing the same instance of the class whenever we will need it, in <code>swift</code> we can perform it by using the <code>static</code> keyword which is defining a <strong>property</strong> or <strong>method</strong> related to the class itself rather than any instantiation of the class.</p>
+<p>The <code>lazy initialization</code> is a memory management feature which allow us to delay a calculation process to the time we will need it, see more in the <a href="../part3/lazy.html">Part III: Notions seen during the presentation</a>.</p>
+<p>So to create our service, we are going to use the <code>Singleton</code> pattern on a new class with a method which is returning an <strong>array</strong> of <code>POI</code>:</p>
+<pre><code class="lang-swift"><span class="hljs-keyword">import</span> CoreLocation
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">POIService</span> </span>{
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">let</span> sharedInstance = <span class="hljs-type">POIService</span>()
+
+    lazy <span class="hljs-keyword">var</span> pointsOfInterest: <span class="hljs-type">Array</span>&lt;<span class="hljs-type">POI</span>&gt; = {
+        <span class="hljs-keyword">return</span> [
+            <span class="hljs-type">POI</span>(
+                title: <span class="hljs-string">&quot;First interesting place.&quot;</span>,
+                subtitle: <span class="hljs-string">&quot;This place is great&quot;</span>,
+                coordinate: <span class="hljs-type">CLLocationCoordinate2D</span>(
+                    latitude: <span class="hljs-number">49.8519574378154</span>,
+                    longitude: -<span class="hljs-number">97.2117918551222</span>
+                )
+            ),
+            <span class="hljs-type">POI</span>(
+                title: <span class="hljs-string">&quot;Second interesting place.&quot;</span>,
+                subtitle: <span class="hljs-string">&quot;This place is alright&quot;</span>,
+                coordinate: <span class="hljs-type">CLLocationCoordinate2D</span>(
+                    latitude: <span class="hljs-number">49.9040656356851</span>,
+                    longitude: -<span class="hljs-number">97.1168358331907</span>
+                )
+            ),
+            <span class="hljs-type">POI</span>(
+                title: <span class="hljs-string">&quot;Third interesting place.&quot;</span>,
+                subtitle: <span class="hljs-string">&quot;This place sucks&quot;</span>,
+                coordinate: <span class="hljs-type">CLLocationCoordinate2D</span>(
+                    latitude: <span class="hljs-number">49.9508672072522</span>,
+                    longitude: -<span class="hljs-number">97.2422074558971</span>
+                )
+            ),
+            <span class="hljs-type">POI</span>(
+                title: <span class="hljs-string">&quot;Fourth interesting place.&quot;</span>,
+                subtitle: <span class="hljs-string">&quot;Have I been here before?&quot;</span>,
+                coordinate: <span class="hljs-type">CLLocationCoordinate2D</span>(
+                    latitude: <span class="hljs-number">49.8716259581715</span>,
+                    longitude: -<span class="hljs-number">97.0682061864028</span>
+                )
+            ),
+            <span class="hljs-type">POI</span>(
+                title: <span class="hljs-string">&quot;Fifth interesting place.&quot;</span>,
+                subtitle: <span class="hljs-string">&quot;I don&apos;t know where I am...&quot;</span>,
+                coordinate: <span class="hljs-type">CLLocationCoordinate2D</span>(
+                    latitude: <span class="hljs-number">49.8141108489216</span>,
+                    longitude: -<span class="hljs-number">97.1298990909147</span>
+                )
+            )
+        ]
+    }()
+}
+</code></pre>
+<p>Finally, go back to your <code>POIViewController</code> and add the following:</p>
+<pre><code class="lang-swift"><span class="hljs-keyword">import</span> UIKit
+<span class="hljs-keyword">import</span> MapKit
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">POIViewController</span>: <span class="hljs-title">UIViewController</span> </span>{
+    <span class="hljs-keyword">var</span> poiService = <span class="hljs-type">POIService</span>.sharedInstance
+    ...
+    <span class="hljs-keyword">override</span> <span class="hljs-func"><span class="hljs-keyword">func</span> <span class="hljs-title">viewDidLoad</span><span class="hljs-params">()</span></span> {
+        ...
+    }
+    <span class="hljs-keyword">override</span> <span class="hljs-func"><span class="hljs-keyword">func</span> <span class="hljs-title">viewDidAppear</span><span class="hljs-params">(animated: Bool)</span></span> {
+        <span class="hljs-keyword">super</span>.viewDidAppear(animated)
+
+        <span class="hljs-comment">// Get POIs</span>
+        <span class="hljs-keyword">let</span> pois = poiService.pointsOfInterest
+
+        <span class="hljs-comment">// Add annotations to map</span>
+        mapView.showAnnotations(pois, animated: <span class="hljs-literal">true</span>)
+    }
+    ...
+}
+</code></pre>
 
                     
                     </section>
