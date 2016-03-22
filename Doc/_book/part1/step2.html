@@ -53,7 +53,7 @@
         data-chapter-title="Step 2: Show Pins on the Map"
         data-filepath="part1/step2.md"
         data-basepath=".."
-        data-revision="Tue Mar 22 2016 11:16:57 GMT-0500 (CDT)"
+        data-revision="Tue Mar 22 2016 11:43:53 GMT-0500 (CDT)"
         data-innerlanguage="">
     
 
@@ -243,6 +243,19 @@
                     <section class="normal" id="section-">
                     
                         <h1 id="step-2-show-pins-on-the-map">Step 2: Show Pins on the Map</h1>
+<p>In this part, we are going to see to add some point of interest to our map. We will be using the <code>showAnnotations(annotations: [MKAnnotation], animated: Bool)</code> of the <code>MK Map View</code>. This method is taking an <strong>array</strong> of <code>MKAnnotation</code> as parameter which is defined as:</p>
+<pre><code class="lang-swift">public <span class="hljs-class"><span class="hljs-keyword">protocol</span> <span class="hljs-title">MKAnnotation</span> : <span class="hljs-title">NSObjectProtocol</span> </span>{
+
+    <span class="hljs-comment">// Center latitude and longitude of the annotation view.</span>
+    <span class="hljs-comment">// The implementation of this property must be KVO compliant.</span>
+    public <span class="hljs-keyword">var</span> coordinate: <span class="hljs-type">CLLocationCoordinate2D</span> { <span class="hljs-keyword">get</span> }
+
+    <span class="hljs-comment">// Title and subtitle for use by selection UI.</span>
+    optional public <span class="hljs-keyword">var</span> title: <span class="hljs-type">String</span>? { <span class="hljs-keyword">get</span> }
+    optional public <span class="hljs-keyword">var</span> subtitle: <span class="hljs-type">String</span>? { <span class="hljs-keyword">get</span> }
+}
+</code></pre>
+<p><code>MKAnnotation</code> is a <strong>protocol</strong> with a property <strong>coordinate</strong> and 2 optionals properties: <strong>title</strong> and <strong>subtitle</strong>.</p>
 
                     
                     </section>

@@ -14,8 +14,8 @@ class POI: NSObject, MKAnnotation {
     var coordinate: CLLocationCoordinate2D
     
     init(
-        title: String,
-        subtitle: String,
+        title: String?,
+        subtitle: String?,
         coordinate: CLLocationCoordinate2D)
     {
         self.title = title
