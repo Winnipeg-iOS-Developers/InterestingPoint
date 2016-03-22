@@ -1,6 +1,6 @@
-# A possible solution for the Code Challenge
+# A possible solution to the Code Challenge
 
-Here is one of the possible solution for the Code Challenge:
+Here is one of the possible solution to the Code Challenge:
 
 * We add the `startUpdatingLocation()` method of our **location manager** in the `viewDidLoad()` scope
 * We implement the `CLLocationManger` protocol method: `locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus)`

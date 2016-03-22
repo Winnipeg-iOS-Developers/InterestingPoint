@@ -53,7 +53,7 @@
         data-chapter-title="Your challenge"
         data-filepath="part3/intro.md"
         data-basepath=".."
-        data-revision="Tue Mar 22 2016 16:56:05 GMT-0500 (CDT)"
+        data-revision="Tue Mar 22 2016 17:17:54 GMT-0500 (CDT)"
         data-innerlanguage="">
     
 
@@ -245,13 +245,13 @@
                     <section class="normal" id="section-">
                     
                         <h1 id="code-challenge">Code Challenge!</h1>
-<p><a href="http://www.meetup.com/Winnipeg-iOS-Developers/members/52765062/" target="_blank">Jeffrey</a>&apos;s presentation covered how to manage your view controller to display a <code>MK Map View</code> and a <code>Table View</code>, we have also seen how to make them interact through the <strong>delegation</strong> and <strong>datasourcing</strong> methods.</p>
-<p>In this code challenge, you will resolve the issue our first user has met in InterestingPoint Project: he sent us the following email:</p>
+<p><a href="http://www.meetup.com/Winnipeg-iOS-Developers/members/52765062/" target="_blank">Jeffrey</a>&apos;s presentation covered how to manage your view controller to display a <code>MK Map View</code> and a <code>Table View</code>, we have also seen how making them interact through the <strong>delegation</strong> and <strong>datasourcing</strong> methods.</p>
+<p>In this code challenge, you will resolve the issue our first user has met with InterestingPoint Project: he sent us the following email:</p>
 <blockquote>
-<p>Dear Winnipeg iOS Developer, I downloaded, installed and tried your new application one week ago. I was quite busy these days and gave it a real try only yesterday. But while running the application, unfortunately, I can&apos;t even see my own location on the map and that make it painful when I want to reach one of your point of interest... that would be awesome if you could fix it! Please find enclosed the screenshot from my device:</p>
+<p>Dear Winnipeg iOS Developer, I downloaded, installed and tried your new application one week ago. I was quite busy these days and gave it a real try only yesterday. But while running the application, unfortunately, I can&apos;t even see my own location on the map and that make it painful when I want to reach one of your points of interest... that would be awesome if you could fix it! Please find enclosed the screenshot from my device:</p>
 </blockquote>
 <p><img src="../illustrations/illustration8.png" alt="illustration8"></p>
-<p>Try to understand what&apos;s happened to this user and solve this issue by being sure that no more user will report it in the future.</p>
+<p>Try to understand what happened to this user and solve this issue by being sure that no more user will report it in the future.</p>
 <p>Download the source code of the project <a href="https://github.com/Winnipeg-iOS-Developers/InterestingPoint/archive/master.zip" target="_blank">here</a></p>
 <h6 id="hints">Hints</h6>
 <p>We reported our issue on <a href="http://stackoverflow.com/" target="_blank">Stack Overflow</a> and got some quick answers:</p>
@@ -259,13 +259,13 @@
 <li>Answer 1:</li>
 </ul>
 <blockquote>
-<p>Did you guys forgot to use the <code>requestWhenInUseAuthorization()</code> of your <code>CLLocationManager</code> instance? Apple require to inform the user about every features of their device your want to use. Also, do not forget to add the corresponding key/value to your <code>Info.plist</code> file...</p>
+<p>Did you guys forget to use the <code>requestWhenInUseAuthorization()</code> of your <code>CLLocationManager</code> instance? Apple require to inform the user about every feature of their device your want to use. Also, do not forget to add the corresponding key/value to your <code>Info.plist</code> file...</p>
 </blockquote>
 <ul>
 <li>Answer 2:</li>
 </ul>
 <blockquote>
-<p>Hey there! Did you ask the user wether he accepted or refused or allowed your application using its GPS? If he refused, the application won&apos;t be able to display its location. I did a similar work few months ago and I used a protocol method of the <code>CLLocationManager</code> to check the state the authorization state...</p>
+<p>Hey there! Did you ask the user whether he accepted or refused or allowed your application using its GPS? If he refused, the application won&apos;t be able to display its location. I did a similar work few months ago and I used a protocol method of the <code>CLLocationManager</code> to check the state the authorization state...</p>
 </blockquote>
 <p>Hoping it will help you to find a solution, Good luck!</p>
 

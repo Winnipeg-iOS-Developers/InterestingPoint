@@ -6,7 +6,7 @@ You said `delegation` and `datasourcing`... what's this?
 
 To make it simple, a Class can define a specific protocol with methods which are necessary (or sometimes optional) to control itself (such as feeding the cells of a table view, or opening the keyboard while clicking in my custom field, etc.). Any component can register to a protocol and implement its methods in order to manipulate the one (or more) instance(s) of the Class. 
 
-What's more? Well Apple already defined protocol for useful native Class in its libraries. Sounds great! Let's try it with the `Table View` component:
+What's more? Well, Apple already defined protocol for useful native Class in its libraries. Sounds great! Let's try it with the `Table View` component:
 
 Any component can register to a protocol, but usually we will define the current view controller as the delegate and/or datasource for the instance which require it, let's define our `POIViewController` as a table view datasource and delegate (and this is -again- really simple):
 
@@ -32,7 +32,7 @@ That's it, your `POIViewController` can handle any instance of the `Table View` 
 
 Remember about required or optional protocol's methods to implement? Well `UITableViewDataSource` define some required methods in its protocol: `tableView(tableView: UITableView, numberOfRowsInSection section: Int)` and `tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath)`
 
-The first one define the number or row which must be inserted into our table view. In our case this should be equal to the number of POIs in our **pois array**, add the following to your `POIViewController`:
+The first one defines the number or row which must be inserted into our table view. In our case this should be equal to the number of POIs in our **pois array**, add the following to your `POIViewController`:
 
 ```swift
 func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -40,7 +40,7 @@ func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> In
 }
 ```
 
-The second method define the design of our cells (which is important and we understand why it is a required method of the protocol), in our case we already "draw" a custom cell with a **title** and **subtitle** in our storyboard remember? Go back to your storyboard and add an identifier to your custom cell in order to point it in your code:
+The second method defines the design of our cells (which is important and we understand why it is a required method of the protocol), in our case we already "draw" a custom cell with a **title** and **subtitle** in our storyboard remember? Go back to your storyboard and add an identifier to your custom cell in order to point it in your code:
 
 ![illustration5](../illustrations/illustration5.png)
 
@@ -62,7 +62,7 @@ func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexP
 * We refer to our custom cell in the storyboard
 * We bind the value of each element of the **pois array** to our cell's components
 
-But the **table view** protocol is much more powerful, Apple's developers defined tons of methods you can implement to customize your table view. We can for example define the event when a cell of the **table view** is selected through the `tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)` delegate method:
+But the **table view** protocol is much more powerful, Apple's developers defined tons of methods you can implement to customize your table view. We can for example, define the event when a cell of the **table view** is selected through the `tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)` delegate method:
 
 ```swift
 func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
@@ -71,7 +71,7 @@ func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSInde
 }
 ```
 
-This is awesome! We can even combine protocol's method of the **table view** delegate and the **map view** delegate:
+This is awesome! We can even combine the protocol's method of the **table view** delegate and the **map view** delegate:
 
 ```swift
 import UIKit

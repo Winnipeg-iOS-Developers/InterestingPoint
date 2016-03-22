@@ -1,6 +1,6 @@
 # Step 1: Layout Map UI in Interface Builder
 
-Go to your project's storyboard, and add the `Map Kit View` to your `view controller` and constraint it. The storyboard provide you a simple way to add constraints to your component by <kbd>Ctrl</kbd> + dragging the component to the view, add the following constraints to your map view:
+Go to your project's storyboard, and add the `Map Kit View` to your `view controller` and constraint it. The storyboard provides you a simple way to add constraints to your component by <kbd>Ctrl</kbd> + dragging the component to the view, add the following constraints to your map view:
 
 * Vertical spacing to top layout guide
 * Vertical spacing to bottom layout guide
@@ -49,7 +49,7 @@ class POIViewController: UIViewController {
 }
 ```
 
-But this is not enough. This is due to Apple'culture which require that you inform the user about what you are going to do through your application (especially when you are using personnal data such as GPS location). By making some search in the documentation, you will find the following:
+But this is not enough. This is due to Apple'culture which require that you inform the user about what you are going to do through your application (especially when you are using personal data such as GPS location). By doing some search in the documentation, you will find the following:
 
 > NSLocationWhenInUseUsageDescription
 

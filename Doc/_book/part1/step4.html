@@ -53,7 +53,7 @@
         data-chapter-title="Step 4: Update MapView&#39;s Visible Region"
         data-filepath="part1/step4.md"
         data-basepath=".."
-        data-revision="Tue Mar 22 2016 16:56:05 GMT-0500 (CDT)"
+        data-revision="Tue Mar 22 2016 17:17:54 GMT-0500 (CDT)"
         data-innerlanguage="">
     
 
@@ -245,7 +245,7 @@
                     <section class="normal" id="section-">
                     
                         <h1 id="step-4-update-mapviews-visible-region">Step 4: Update MapView&apos;s Visible Region</h1>
-<p>So our application is going well, but something is a little weird... the view is actually centering on the screen&apos;s device rather than the visible region!</p>
+<p>So our application is going well, but something is a little weird... the view is actually centered on the screen&apos;s device rather than the visible region!</p>
 <p>To fix this, we are going to ask the map view to update it&apos;s height according to the space taken by the table view, asking this to the map view require that the table view has already been displayed, that&apos;s why we will add our code in the <code>viewDidAppear</code> scope:</p>
 <pre><code class="lang-swift">mapView.layoutMargins.bottom = tableView.frame.height
 </code></pre>

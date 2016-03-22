@@ -1,6 +1,6 @@
 # Step 2: Show Pins on the Map
 
-In this part, we are going to see to add some point of interest to our map. We will be using the `showAnnotations(annotations: [MKAnnotation], animated: Bool)` of the `MK Map View`. This method is taking an **array** of `MKAnnotation` as parameter which is defined as:
+In this part, we are going to see to add some point of interest to our map. We will be using the `showAnnotations(annotations: [MKAnnotation], animated: Bool)` of the `MK Map View`. This method takes an **array** of `MKAnnotation` as parameter which is defined as:
 
 ```swift
 public protocol MKAnnotation : NSObjectProtocol {
@@ -15,9 +15,9 @@ public protocol MKAnnotation : NSObjectProtocol {
 }
 ```
 
-`MKAnnotation` is a **protocol** with a property **coordinate** and 2 optionals properties: **title** and **subtitle**.
+`MKAnnotation` is a **protocol** with a property **coordinate** and 2 optional properties: **title** and **subtitle**.
 
-Let's create our own object `POI` which adopt the `MKAnnotation` protocol:
+Let's create our own object `POI` which adopts the `MKAnnotation` protocol:
 
 ```swift
 import MapKit
@@ -44,16 +44,16 @@ This is basic, nothing special here, we keep the title and subtitle optionals an
 
 ###### Addional content (this part hasn't be seend during the presentation) ######
 
-We are going to simulate a service which is providing us the data (points of interest in this case) for our application. There is 2 important notions here: 
+We are going to simulate a service which is providing us the data (points of interest in this case) for our application. There are 2 important notions here: 
 
 * Singleton pattern
 * Lazy initialization
 
-The `Singleton` is a pattern which allow us to create a single instance of a specific class. It allow us to be sure that we are always accessing the same instance of the class whenever we will need it, in `swift` we can perform it by using the `static` keyword which is defining a **property** or **method** related to the class itself rather than any instantiation of the class.
+The `Singleton` is a pattern which allows us to create a single instance of a specific class. It allows us to be sure that we are always accessing the same instance of the class whenever we will need it, in `swift` we can perform it by using the `static` keyword which is defining a **property** or **method** related to the class itself rather than any instantiation of the class.
 
-The `lazy initialization` is a memory management feature which allow us to delay a calculation process to the time we will need it, see more in the [Part III: Notions seen during the presentation](../part3/lazy.md).
+The lazy initialization is a memory management feature which allow us to delay a calculation process to the time we will need it, see more in the [documentation](https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Properties.html).
 
-So to create our service, we are going to use the `Singleton` pattern on a new class with a method which is returning an **array** of `POI`:
+So to create our service, we are going to use the `Singleton` pattern in a new class with a method which is returning an **array** of `POI`:
 
 ```swift
 import CoreLocation

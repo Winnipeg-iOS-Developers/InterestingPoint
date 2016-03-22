@@ -53,7 +53,7 @@
         data-chapter-title="Step 2: Show Pins on the Map"
         data-filepath="part1/step2.md"
         data-basepath=".."
-        data-revision="Tue Mar 22 2016 16:56:05 GMT-0500 (CDT)"
+        data-revision="Tue Mar 22 2016 17:17:54 GMT-0500 (CDT)"
         data-innerlanguage="">
     
 
@@ -245,7 +245,7 @@
                     <section class="normal" id="section-">
                     
                         <h1 id="step-2-show-pins-on-the-map">Step 2: Show Pins on the Map</h1>
-<p>In this part, we are going to see to add some point of interest to our map. We will be using the <code>showAnnotations(annotations: [MKAnnotation], animated: Bool)</code> of the <code>MK Map View</code>. This method is taking an <strong>array</strong> of <code>MKAnnotation</code> as parameter which is defined as:</p>
+<p>In this part, we are going to see to add some point of interest to our map. We will be using the <code>showAnnotations(annotations: [MKAnnotation], animated: Bool)</code> of the <code>MK Map View</code>. This method takes an <strong>array</strong> of <code>MKAnnotation</code> as parameter which is defined as:</p>
 <pre><code class="lang-swift">public <span class="hljs-class"><span class="hljs-keyword">protocol</span> <span class="hljs-title">MKAnnotation</span> : <span class="hljs-title">NSObjectProtocol</span> </span>{
 
     <span class="hljs-comment">// Center latitude and longitude of the annotation view.</span>
@@ -257,8 +257,8 @@
     optional public <span class="hljs-keyword">var</span> subtitle: <span class="hljs-type">String</span>? { <span class="hljs-keyword">get</span> }
 }
 </code></pre>
-<p><code>MKAnnotation</code> is a <strong>protocol</strong> with a property <strong>coordinate</strong> and 2 <a href="../GLOSSARY.html#optionals" class="glossary-term" title="An optional in Swift is a variable that can hold either a value or no value. Optionals are written by appending a ? to the type (var myOptionalString:String? = &quot;Hello World&quot; is an optional String)">optionals</a> properties: <strong>title</strong> and <strong>subtitle</strong>.</p>
-<p>Let&apos;s create our own object <code>POI</code> which adopt the <code>MKAnnotation</code> protocol:</p>
+<p><code>MKAnnotation</code> is a <strong>protocol</strong> with a property <strong>coordinate</strong> and 2 optional properties: <strong>title</strong> and <strong>subtitle</strong>.</p>
+<p>Let&apos;s create our own object <code>POI</code> which adopts the <code>MKAnnotation</code> protocol:</p>
 <pre><code class="lang-swift"><span class="hljs-keyword">import</span> MapKit
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">POI</span>: <span class="hljs-title">NSObject</span>, <span class="hljs-title">MKAnnotation</span> </span>{
@@ -279,14 +279,14 @@
 </code></pre>
 <p>This is basic, nothing special here, we keep the title and subtitle <a href="../GLOSSARY.html#optionals" class="glossary-term" title="An optional in Swift is a variable that can hold either a value or no value. Optionals are written by appending a ? to the type (var myOptionalString:String? = &quot;Hello World&quot; is an optional String)">optionals</a> and we implement the <code>init()</code> method of our class.</p>
 <h6 id="addional-content-this-part-hasnt-be-seend-during-the-presentation">Addional content (this part hasn&apos;t be seend during the presentation)</h6>
-<p>We are going to simulate a service which is providing us the data (points of interest in this case) for our application. There is 2 important notions here: </p>
+<p>We are going to simulate a service which is providing us the data (points of interest in this case) for our application. There are 2 important notions here: </p>
 <ul>
 <li>Singleton pattern</li>
 <li><a href="../GLOSSARY.html#lazy_initialization" class="glossary-term" title="Apple Documentation: A lazy stored property is a property whose initial value is not calculated until the first time it is used. You indicate a lazy stored property by writing the lazy modifier before its declaration.">Lazy initialization</a></li>
 </ul>
-<p>The <code>Singleton</code> is a pattern which allow us to create a single instance of a specific class. It allow us to be sure that we are always accessing the same instance of the class whenever we will need it, in <code>swift</code> we can perform it by using the <code>static</code> keyword which is defining a <strong>property</strong> or <strong>method</strong> related to the class itself rather than any instantiation of the class.</p>
-<p>The <code>lazy initialization</code> is a memory management feature which allow us to delay a calculation process to the time we will need it, see more in the <a href="../part3/lazy.md">Part III: Notions seen during the presentation</a>.</p>
-<p>So to create our service, we are going to use the <code>Singleton</code> pattern on a new class with a method which is returning an <strong>array</strong> of <code>POI</code>:</p>
+<p>The <code>Singleton</code> is a pattern which allows us to create a single instance of a specific class. It allows us to be sure that we are always accessing the same instance of the class whenever we will need it, in <code>swift</code> we can perform it by using the <code>static</code> keyword which is defining a <strong>property</strong> or <strong>method</strong> related to the class itself rather than any instantiation of the class.</p>
+<p>The <a href="../GLOSSARY.html#lazy_initialization" class="glossary-term" title="Apple Documentation: A lazy stored property is a property whose initial value is not calculated until the first time it is used. You indicate a lazy stored property by writing the lazy modifier before its declaration.">lazy initialization</a> is a memory management feature which allow us to delay a calculation process to the time we will need it, see more in the <a href="https://developer.apple.com/library/ios/documentation/Swift/Conceptual/Swift_Programming_Language/Properties.html" target="_blank">documentation</a>.</p>
+<p>So to create our service, we are going to use the <code>Singleton</code> pattern in a new class with a method which is returning an <strong>array</strong> of <code>POI</code>:</p>
 <pre><code class="lang-swift"><span class="hljs-keyword">import</span> CoreLocation
 
 <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">POIService</span> </span>{
