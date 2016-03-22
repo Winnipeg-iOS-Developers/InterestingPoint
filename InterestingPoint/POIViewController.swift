@@ -12,7 +12,7 @@ import MapKit
 class POIViewController: UIViewController,
     UITableViewDataSource,
     UITableViewDelegate,
-    MKMapViewDelegate, CLLocationManagerDelegate
+    MKMapViewDelegate
 {
     // MARK: - Dependencies
     var poiService = POIService.sharedInstance
@@ -31,9 +31,7 @@ class POIViewController: UIViewController,
 
         // Do any additional setup after loading the view.
         
-        locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
         
         centerMapOnWinnipeg()
         
@@ -124,35 +122,5 @@ class POIViewController: UIViewController,
         // Select cell at index
         let indexPath = NSIndexPath(forRow: index, inSection: 0)
         tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: .Top)
-    }
-    
-    // MARK: - CLLocationManagerDelegate
-    
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        switch CLLocationManager.authorizationStatus() {
-        case .AuthorizedAlways, .AuthorizedWhenInUse:
-            if CLLocationManager.isMonitoringAvailableForClass(CLBeaconRegion.self) {
-                // Authorization is ok
-            }
-        case .NotDetermined:
-            manager.requestWhenInUseAuthorization()
-        case .Restricted, .Denied:
-            let alertController = UIAlertController(
-                title: "Background Location Access Disabled",
-                message: "The GPS feature has been disabled and we won't be able to display your location unless you modify the application setting...",
-                preferredStyle: .Alert)
-            
-            let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-            alertController.addAction(cancelAction)
-            
-            let openAction = UIAlertAction(title: "Open Settings", style: .Default) { (action) in
-                if let url = NSURL(string:UIApplicationOpenSettingsURLString) {
-                    UIApplication.sharedApplication().openURL(url)
-                }
-            }
-            alertController.addAction(openAction)
-            
-            self.presentViewController(alertController, animated: true, completion: nil)
-        }
     }
 }
