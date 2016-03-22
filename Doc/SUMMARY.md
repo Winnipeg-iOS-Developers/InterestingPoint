@@ -16,3 +16,8 @@
 
 * [Optionals](part3/optionals.md)
 * [Lazy initialization](part3/lazy.md)
+
+## Part IV: Code Challenge!
+
+* [Your challenge](part4/intro.md)
+* [The solution](part4/solution.md)
