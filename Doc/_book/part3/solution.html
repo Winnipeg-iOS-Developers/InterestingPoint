@@ -5,7 +5,7 @@
         
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <title>Step 4: Update MapView&#39;s Visible Region | Summary</title>
+        <title>The solution | Summary</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
         <meta name="generator" content="GitBook 2.6.7">
@@ -37,10 +37,8 @@
         
     
     
-    <link rel="next" href="../part1/step5.html" />
     
-    
-    <link rel="prev" href="../part1/step3.html" />
+    <link rel="prev" href="../part3/intro.html" />
     
 
         
@@ -49,9 +47,9 @@
         
         
     <div class="book"
-        data-level="4"
-        data-chapter-title="Step 4: Update MapView&#39;s Visible Region"
-        data-filepath="part1/step4.md"
+        data-level="8"
+        data-chapter-title="The solution"
+        data-filepath="part3/solution.md"
         data-basepath=".."
         data-revision="Tue Mar 22 2016 16:56:05 GMT-0500 (CDT)"
         data-innerlanguage="">
@@ -134,7 +132,7 @@
             
         </li>
     
-        <li class="chapter active" data-level="4" data-path="part1/step4.html">
+        <li class="chapter " data-level="4" data-path="part1/step4.html">
             
                 
                     <a href="../part1/step4.html">
@@ -194,7 +192,7 @@
             
         </li>
     
-        <li class="chapter " data-level="8" data-path="part3/solution.html">
+        <li class="chapter active" data-level="8" data-path="part3/solution.html">
             
                 
                     <a href="../part3/solution.html">
@@ -244,12 +242,70 @@
                 
                     <section class="normal" id="section-">
                     
-                        <h1 id="step-4-update-mapviews-visible-region">Step 4: Update MapView&apos;s Visible Region</h1>
-<p>So our application is going well, but something is a little weird... the view is actually centering on the screen&apos;s device rather than the visible region!</p>
-<p>To fix this, we are going to ask the map view to update it&apos;s height according to the space taken by the table view, asking this to the map view require that the table view has already been displayed, that&apos;s why we will add our code in the <code>viewDidAppear</code> scope:</p>
-<pre><code class="lang-swift">mapView.layoutMargins.bottom = tableView.frame.height
+                        <h1 id="a-possible-solution-for-the-code-challenge">A possible solution for the Code Challenge</h1>
+<p>Here is one of the possible solution for the Code Challenge:</p>
+<ul>
+<li>We add the <code>startUpdatingLocation()</code> method of our <strong>location manager</strong> in the <code>viewDidLoad()</code> scope</li>
+<li>We implement the <code>CLLocationManger</code> protocol method: <code>locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus)</code></li>
+<li>We check the authorization state concerning the GPS use, if the user rejected the GPS use, we remind him/her that the application won&apos;t be able to display its location and we advise him/her to change the application setting (we can even redirect him to the application authorization menu):</li>
+</ul>
+<pre><code class="lang-swift"><span class="hljs-keyword">import</span> UIKit
+<span class="hljs-keyword">import</span> MapKit
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">POIViewController</span>: <span class="hljs-title">UIViewController</span>, <span class="hljs-title">UITableViewDataSource</span>, <span class="hljs-title">UITableViewDelegate</span>, <span class="hljs-title">MKMapViewDelegate</span>, <span class="hljs-title">CLLocationManagerDelegate</span> </span>{    <span class="hljs-comment">// &lt;- CLLocationManagerDelegate protocol added</span>
+    ...
+
+    <span class="hljs-keyword">let</span> locationManager = <span class="hljs-type">CLLocationManager</span>()
+
+    <span class="hljs-keyword">override</span> <span class="hljs-func"><span class="hljs-keyword">func</span> <span class="hljs-title">viewDidLoad</span><span class="hljs-params">()</span></span> {
+        <span class="hljs-keyword">super</span>.viewDidLoad()
+
+        <span class="hljs-comment">// Do any additional setup after loading the view.</span>
+
+        locationManager.delegate = <span class="hljs-keyword">self</span>        <span class="hljs-comment">// We set the delegate of the location manager</span>
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.startUpdatingLocation()        <span class="hljs-comment">// This method update the location of the user on the map</span>
+
+        centerMapOnWinnipeg()
+
+        setupTableView()
+    }
+
+    ...
+
+    <span class="hljs-comment">// We check the authorization state, if it has been rejected we warn the user with the UIAlertActionController:</span>
+
+    <span class="hljs-func"><span class="hljs-keyword">func</span> <span class="hljs-title">locationManager</span><span class="hljs-params">(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus)</span></span> {
+        <span class="hljs-keyword">switch</span> <span class="hljs-type">CLLocationManager</span>.authorizationStatus() {
+        <span class="hljs-keyword">case</span> .<span class="hljs-type">AuthorizedAlways</span>, .<span class="hljs-type">AuthorizedWhenInUse</span>:
+            <span class="hljs-keyword">if</span> <span class="hljs-type">CLLocationManager</span>.isMonitoringAvailableForClass(<span class="hljs-type">CLBeaconRegion</span>.<span class="hljs-keyword">self</span>) {
+                <span class="hljs-comment">// Authorization is ok</span>
+            }
+        <span class="hljs-keyword">case</span> .<span class="hljs-type">NotDetermined</span>:
+            manager.requestWhenInUseAuthorization()
+        <span class="hljs-keyword">case</span> .<span class="hljs-type">Restricted</span>, .<span class="hljs-type">Denied</span>:
+            <span class="hljs-keyword">let</span> alertController = <span class="hljs-type">UIAlertController</span>(
+                title: <span class="hljs-string">&quot;Background Location Access Disabled&quot;</span>,
+                message: <span class="hljs-string">&quot;The GPS feature has been disabled and we won&apos;t be able to display your location unless you modify the application setting...&quot;</span>,
+                preferredStyle: .<span class="hljs-type">Alert</span>)
+
+            <span class="hljs-keyword">let</span> cancelAction = <span class="hljs-type">UIAlertAction</span>(title: <span class="hljs-string">&quot;Cancel&quot;</span>, style: .<span class="hljs-type">Cancel</span>, handler: <span class="hljs-literal">nil</span>)
+            alertController.addAction(cancelAction)
+
+            <span class="hljs-keyword">let</span> openAction = <span class="hljs-type">UIAlertAction</span>(title: <span class="hljs-string">&quot;Open Settings&quot;</span>, style: .<span class="hljs-type">Default</span>) { (action) <span class="hljs-keyword">in</span>
+                <span class="hljs-keyword">if</span> <span class="hljs-keyword">let</span> url = <span class="hljs-type">NSURL</span>(string:<span class="hljs-type">UIApplicationOpenSettingsURLString</span>) {
+                    <span class="hljs-type">UIApplication</span>.sharedApplication().openURL(url)
+                }
+            }
+            alertController.addAction(openAction)
+
+            <span class="hljs-keyword">self</span>.presentViewController(alertController, animated: <span class="hljs-literal">true</span>, completion: <span class="hljs-literal">nil</span>)
+        }
+    }
+}
 </code></pre>
-<p>That&apos;s it, pretty simple right?</p>
+<p>And the illustration:</p>
+<p><img src="../illustrations/illustration9.png" alt="illustration9"></p>
 
                     
                     </section>
@@ -260,10 +316,8 @@
         </div>
 
         
-        <a href="../part1/step3.html" class="navigation navigation-prev " aria-label="Previous page: Step 3: Add UITableView to UI in IB"><i class="fa fa-angle-left"></i></a>
+        <a href="../part3/intro.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page: Your challenge"><i class="fa fa-angle-left"></i></a>
         
-        
-        <a href="../part1/step5.html" class="navigation navigation-next " aria-label="Next page: Step 5: Show POIs in TableView"><i class="fa fa-angle-right"></i></a>
         
     </div>
 </div>
