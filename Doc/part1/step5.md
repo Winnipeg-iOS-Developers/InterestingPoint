@@ -145,4 +145,4 @@ Build and run.. your application is running like a charm!
 
 ![illustration6](../illustrations/illustration6.png)
 
-You have learnt some basics about the Interface Builder, how to manage the constraints of your components in your view, how to use the delegation and datasourcing protocol of a Class. Check out the [Code challenge of this first meetup](../part4/intro.md) And don't miss [the tips from Jeffrey during the presentation](../part2/snippets.md)
+You have learnt some basics about the Interface Builder, how to manage the constraints of your components in your view, how to use the delegation and datasourcing protocol of a Class. Check out the [Code challenge of this first meetup](../part3/intro.md) And don't miss [the tips from Jeffrey during the presentation](../part2/snippets.md)
