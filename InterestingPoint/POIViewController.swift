@@ -118,7 +118,7 @@ class POIViewController: UIViewController,
             print("\(__FUNCTION__): Could not get index of selected POI")
             return
         }
-        
+    
         // Select cell at index
         let indexPath = NSIndexPath(forRow: index, inSection: 0)
         tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: .Top)
