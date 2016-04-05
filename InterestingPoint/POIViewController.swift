@@ -110,12 +110,12 @@ class POIViewController: UIViewController,
     
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         guard let selectedPOI = view.annotation as? POI else {
-            print("\(__FUNCTION__): Could not get POI from annotationView.")
+            print("\(#function): Could not get POI from annotationView.")
             return
         }
         
         guard let index = poiService.pointsOfInterest.indexOf(selectedPOI) else {
-            print("\(__FUNCTION__): Could not get index of selected POI")
+            print("\(#function): Could not get index of selected POI")
             return
         }
     
