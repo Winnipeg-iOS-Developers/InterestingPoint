@@ -53,6 +53,9 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <segue destination="yjf-dQ-5Lr" kind="presentation" identifier="showSegueVC" trigger="accessoryAction" id="YlX-Ce-OTV"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
@@ -207,7 +210,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Details via Segue" id="sBf-KA-31W">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="FMv-pX-K49"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="FMv-pX-K49">
+                            <connections>
+                                <segue destination="HpF-ZN-j3K" kind="unwind" identifier="unwindToPOIViewController" unwindAction="unwindToPOIViewController:" id="7RP-oY-1xc"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="UZu-VY-BRk">
                             <connections>
                                 <action selector="saveTapped:" destination="Uhk-8e-pyJ" id="tt5-2X-jTZ"/>
@@ -223,6 +230,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dLB-N8-pO6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="HpF-ZN-j3K" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="1378" y="825"/>
         </scene>

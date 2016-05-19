@@ -188,5 +188,25 @@ class POIViewController: UIViewController,
         
         dismissViewControllerAnimated(true, completion: nil)
     }
-
+    
+    // MARK: - Segues
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "showSegueVC" {
+            let navController = segue.destinationViewController as! UINavigationController
+            let segueVC = navController.topViewController as! SegueVC
+            let selectedCell = sender as! UITableViewCell
+            let selectedIndexPath = tableView.indexPathForCell(selectedCell)!
+            
+            let poi = poiService.pointsOfInterest[selectedIndexPath.row]
+            segueVC.poi = poi
+        }
+    }
+    
+    @IBAction func unwindToPOIViewController(unwindSegue: UIStoryboardSegue) {
+        if let segueVC = unwindSegue.sourceViewController as? SegueVC {
+            let poi = segueVC.poi
+            reloadUIForPOI(poi)
+        }
+    }
 }

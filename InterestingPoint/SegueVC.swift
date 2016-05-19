@@ -61,5 +61,4 @@ class SegueVC: UIViewController, MKMapViewDelegate {
         
         performSegueWithIdentifier("unwindToPOIViewController", sender: self)
     }
-
 }
