@@ -138,6 +138,16 @@ class POIViewController: UIViewController,
         
         // TODO: Add Directions button
         
+        // Directions Button
+        let leftButton = UIButton(type: .Custom)
+        let image = UIImage(named: "Car Icon")
+        leftButton.setImage(image, forState: .Normal)
+        leftButton.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+        leftButton.tintColor = UIColor.whiteColor()
+        leftButton.backgroundColor = self.view.tintColor
+        annotationView.leftCalloutAccessoryView = leftButton
+
+        
         // Info Button
         let rightButton = UIButton(type: .DetailDisclosure)
         annotationView.rightCalloutAccessoryView = rightButton
@@ -161,19 +171,29 @@ class POIViewController: UIViewController,
     {
         // TODO: Take separate actions for left & right accessory controls.
         
-        // Instantiate view controller from storyboard.
-        let storyboard = UIStoryboard(name: "Main", bundle: nil )
-        let navController = storyboard.instantiateViewControllerWithIdentifier(
-            "DelegationNC") as! UINavigationController
-        
-        // TODO: Configure DelegationVC before presenting.
-        let delegationVC = navController.topViewController as! DelegationVC
         let poi = view.annotation as! POI
-        delegationVC.poi = poi
-        delegationVC.delegate = self
         
-        // Present as modal
-        presentViewController(navController, animated: true, completion: nil)
+        // Directions
+        if control == view.leftCalloutAccessoryView {
+            getDirectionsForPOI(poi)
+        }
+        
+        // DelegationVC
+        if control == view.rightCalloutAccessoryView {
+            // Instantiate view controller from storyboard.
+            let storyboard = UIStoryboard(name: "Main", bundle: nil )
+            let navController = storyboard.instantiateViewControllerWithIdentifier(
+                "DelegationNC") as! UINavigationController
+            
+            // TODO: Configure DelegationVC before presenting.
+            let delegationVC = navController.topViewController as! DelegationVC
+            
+            delegationVC.poi = poi
+            delegationVC.delegate = self
+            
+            // Present as modal
+            presentViewController(navController, animated: true, completion: nil)
+        }
     }
     
     // MARK: DelegationVCDelegate
@@ -208,5 +228,21 @@ class POIViewController: UIViewController,
             let poi = segueVC.poi
             reloadUIForPOI(poi)
         }
+    }
+    
+    // MARK: - Directions
+    
+    func getDirectionsForPOI(poi: POI) {
+        let placemark = MKPlacemark(
+            coordinate: poi.coordinate,
+            addressDictionary: nil
+        )
+        
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = poi.title
+        
+        mapItem.openInMapsWithLaunchOptions([
+            MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving
+        ])
     }
 }
