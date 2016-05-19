@@ -12,7 +12,8 @@ import MapKit
 class POIViewController: UIViewController,
     UITableViewDataSource,
     UITableViewDelegate,
-    MKMapViewDelegate
+    MKMapViewDelegate,
+    DelegationVCDelegate
 {
     // MARK: - Dependencies
     var poiService = POIService.sharedInstance
@@ -166,9 +167,26 @@ class POIViewController: UIViewController,
             "DelegationNC") as! UINavigationController
         
         // TODO: Configure DelegationVC before presenting.
-        
+        let delegationVC = navController.topViewController as! DelegationVC
+        let poi = view.annotation as! POI
+        delegationVC.poi = poi
+        delegationVC.delegate = self
         
         // Present as modal
         presentViewController(navController, animated: true, completion: nil)
     }
+    
+    // MARK: DelegationVCDelegate
+    
+    func delegationVCDidCancel(delegationVC: DelegationVC) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func delegationVCDidSave(delegationVC: DelegationVC) {
+        let poi = delegationVC.poi
+        reloadUIForPOI(poi)
+        
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+
 }
