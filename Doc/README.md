@@ -14,4 +14,4 @@ Our Github repository is available at this address: [https://github.com/winnipeg
 
 And the screencasts of our presentations here: [https://vimeo.com/groups/winnipegiosdevelopers](https://vimeo.com/groups/winnipegiosdevelopers).
 
-This ebook will lead you through our location-based app.
+This ebook will lead you through our location-based app displaying points of interest.
