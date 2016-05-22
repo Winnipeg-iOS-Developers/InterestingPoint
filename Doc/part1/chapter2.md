@@ -191,3 +191,79 @@ It also register for the *MKAnnotation* protocol, once again, the documentation 
 Our *POI* class define the optional title and subtitle inherited from the *MKAnnotation* protocol but also its coordinate. And we create an basic initializer for the class.
 
 That's it, we have a custom class which can be used as pins for our map view.
+
+### Defining a persistent service providing our points of interest
+
+Now that we have defined our map pins model, we could implement the code to create them and add them to the map, but the good practice is to use a persistent storage such as local database ([Core Data](https://developer.apple.com/library/mac/documentation/Cocoa/Reference/CoreData_ObjC/), [Realm](https://realm.io/), [SQlite](https://www.sqlite.org/), etc.), remote database with an API, and many other ways. In our case, we are going to simulate a service with the Singleton pattern.
+
+Add a new folder *Service* in your *Project Navigator* and create a new file *POIService.swift*:
+
+```swift
+import CoreLocation
+
+class POIService {
+    static let sharedInstance = POIService()
+    
+    lazy var pointsOfInterest: Array<POI> = {
+        return [
+            POI(
+                title: "First interesting place.",
+                subtitle: "This place is great",
+                coordinate: CLLocationCoordinate2D(
+                    latitude: 49.8519574378154,
+                    longitude: -97.2117918551222
+                )
+            ),
+            POI(
+                title: "Second interesting place.",
+                subtitle: "This place is alright",
+                coordinate: CLLocationCoordinate2D(
+                    latitude: 49.9040656356851,
+                    longitude: -97.1168358331907
+                )
+            ),
+            POI(
+                title: "Third interesting place.",
+                subtitle: "This place sucks",
+                coordinate: CLLocationCoordinate2D(
+                    latitude: 49.9508672072522,
+                    longitude: -97.2422074558971
+                )
+            ),
+            POI(
+                title: "Fourth interesting place.",
+                subtitle: "Have I been here before?",
+                coordinate: CLLocationCoordinate2D(
+                    latitude: 49.8716259581715,
+                    longitude: -97.0682061864028
+                )
+            ),
+            POI(
+                title: "Fifth interesting place.",
+                subtitle: "I don't know where I am...",
+                coordinate: CLLocationCoordinate2D(
+                    latitude: 49.8141108489216,
+                    longitude: -97.1298990909147
+                )
+            )
+        ]
+    }()
+}
+```
+
+The *static* keyword here define a *class* property or method (against the usual *instance* property or method), that allows us to always access to the same property any time we call it.
+
+Did you notice the *lazy* keyword? This attribute is supported by swift to improve your memory management. By using it, you ask xCode to process your code on-demand.
+
+We can now inject this service dependency in our *POIViewController*:
+
+```swift
+class POIViewController: UIViewController, MKMapViewDelegate {
+    // MARK: - Dependencies
+    var poiService = POIService.sharedInstance
+    
+    [...]
+}
+```
+
+At this state, your application display a map view which is centered on Winnipeg, it also provides a table view which is invisible and empty and finally it provides a persistent array with 5 points of interest. In the next step, we are going to use the *POIService* to fill the table view.
