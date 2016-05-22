@@ -22,3 +22,13 @@ xCode will bootstrap a basic template template for you, the environment can be s
 * The **Utility area** provides the inspectors (assistant to manage your file or get some informations) and the libraries.
 
 ![illustration1](../art/illustration1.png)
+
+### Cleaning up your project
+
+The **project navigator** (in the navigator area) provides you a way to organize your project architecture. You can create folders and subfolders in your architecture tree and seperate your scripts as you wish. Let's start by seperating our files with the MVC pattern: <kbd>RIGHT CLICK</kbd> on the main folder in the **project navigator** and select the option "New Group" to create a new folder. Let's create 3 new folders: **Model**, **View** and **Controller**:
+
+* Move the files **Main.storyboard**, **LaunchScreen.storyboard** and **Assets.xcassets** within your view folder
+* Delete the default **ViewController.swift**
+* Create a new file (<kbd>RIGHT CLICK</kbd> in the **project navigator** and select "New File...") **POIViewController.swift** in your **Controller** folder.
+
+![illustration2](../art/illustration2.png)
