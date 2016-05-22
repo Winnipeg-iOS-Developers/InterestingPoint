@@ -1,0 +1,419 @@
+<!DOCTYPE HTML>
+<html lang="en" >
+    
+    <head>
+        
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title>Step 5: Show POIs in TableView | Summary</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 2.6.7">
+        
+        
+        <meta name="HandheldFriendly" content="true"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
+        <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
+        
+    <link rel="stylesheet" href="../gitbook/style.css">
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-highlight/website.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-search/search.css">
+        
+    
+        
+        <link rel="stylesheet" href="../gitbook/plugins/gitbook-plugin-fontsettings/website.css">
+        
+    
+    
+
+        
+    
+    
+    <link rel="next" href="../part2/snippets.html" />
+    
+    
+    <link rel="prev" href="../part1/step4.html" />
+    
+
+        
+    </head>
+    <body>
+        
+        
+    <div class="book"
+        data-level="5"
+        data-chapter-title="Step 5: Show POIs in TableView"
+        data-filepath="part1/step5.md"
+        data-basepath=".."
+        data-revision="Tue Mar 22 2016 19:17:30 GMT-0500 (CDT)"
+        data-innerlanguage="">
+    
+
+<div class="book-summary">
+    <nav role="navigation">
+        <ul class="summary">
+            
+            
+            
+                
+                <li>
+                    <a href="http://www.meetup.com/Winnipeg-iOS-Developers/" target="blank" class="custom-link">Wanna join our group?</a>
+                </li>
+            
+            
+
+            
+            <li class="divider"></li>
+            
+
+            
+    
+        <li class="chapter " data-level="0" data-path="index.html">
+            
+                
+                    <a href="../index.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                        Introduction
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="1" data-path="part1/step1.html">
+            
+                
+                    <a href="../part1/step1.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>1.</b>
+                        
+                        Step 1: Layout Map UI in IB
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="2" data-path="part1/step2.html">
+            
+                
+                    <a href="../part1/step2.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>2.</b>
+                        
+                        Step 2: Show Pins on the Map
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="3" data-path="part1/step3.html">
+            
+                
+                    <a href="../part1/step3.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>3.</b>
+                        
+                        Step 3: Add UITableView to UI in IB
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="4" data-path="part1/step4.html">
+            
+                
+                    <a href="../part1/step4.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>4.</b>
+                        
+                        Step 4: Update MapView&#39;s Visible Region
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter active" data-level="5" data-path="part1/step5.html">
+            
+                
+                    <a href="../part1/step5.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>5.</b>
+                        
+                        Step 5: Show POIs in TableView
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="6" data-path="part2/snippets.html">
+            
+                
+                    <a href="../part2/snippets.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>6.</b>
+                        
+                        How to use snippets with xCode
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="7" data-path="part3/intro.html">
+            
+                
+                    <a href="../part3/intro.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>7.</b>
+                        
+                        Your challenge
+                    </a>
+            
+            
+        </li>
+    
+        <li class="chapter " data-level="8" data-path="part3/solution.html">
+            
+                
+                    <a href="../part3/solution.html">
+                
+                        <i class="fa fa-check"></i>
+                        
+                            <b>8.</b>
+                        
+                        The solution
+                    </a>
+            
+            
+        </li>
+    
+
+
+            
+            <li class="divider"></li>
+            <li>
+                <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+                    Published with GitBook
+                </a>
+            </li>
+            
+        </ul>
+    </nav>
+</div>
+
+    <div class="book-body">
+        <div class="body-inner">
+            <div class="book-header" role="navigation">
+    <!-- Actions Left -->
+    
+    <a href="../GLOSSARY.html" class="btn pull-left" aria-label="Glossary"><i class="fa fa-sort-alpha-asc"></i></a>
+    
+
+    <!-- Title -->
+    <h1>
+        <i class="fa fa-circle-o-notch fa-spin"></i>
+        <a href="../" >Summary</a>
+    </h1>
+</div>
+
+            <div class="page-wrapper" tabindex="-1" role="main">
+                <div class="page-inner">
+                
+                
+                    <section class="normal" id="section-">
+                    
+                        <h1 id="step-5-show-pois-in-tableview">Step 5: Show POIs in TableView</h1>
+<p>This is the most interesting part: we are going to use the <code>delegation</code> and <code>datasourcing</code> features of <strong>iOS</strong> in order to feed and control our components. </p>
+<p>You said <code>delegation</code> and <code>datasourcing</code>... what&apos;s this?</p>
+<p>To make it simple, a Class can define a specific protocol with methods which are necessary (or sometimes optional) to control itself (such as feeding the cells of a table view, or opening the keyboard while clicking in my custom field, etc.). Any component can register to a protocol and implement its methods in order to manipulate the one (or more) instance(s) of the Class. </p>
+<p>What&apos;s more? Well, Apple already defined protocol for useful native Class in its libraries. Sounds great! Let&apos;s try it with the <code>Table View</code> component:</p>
+<p>Any component can register to a protocol, but usually we will define the current view controller as the delegate and/or datasource for the instance which require it, let&apos;s define our <code>POIViewController</code> as a table view datasource and delegate (and this is -again- really simple):</p>
+<pre><code class="lang-swift"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">POIViewController</span>: <span class="hljs-title">UIViewController</span>, <span class="hljs-title">UITableViewDataSource</span>, <span class="hljs-title">UITableViewDelegate</span> </span>{
+    <span class="hljs-preprocessor">@IBOutlet</span> <span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> mapView: <span class="hljs-type">MKMapView</span>!
+    <span class="hljs-preprocessor">@IBOutlet</span> <span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> tableView: <span class="hljs-type">UITableView</span>!
+
+    <span class="hljs-keyword">override</span> <span class="hljs-func"><span class="hljs-keyword">func</span> <span class="hljs-title">viewDidLoad</span><span class="hljs-params">()</span></span> {
+        <span class="hljs-keyword">super</span>.viewDidLoad()
+
+        <span class="hljs-comment">// Do any additional setup after loading the view.</span>
+        ...
+        tableView.datasource = <span class="hljs-keyword">self</span>        <span class="hljs-comment">// &lt;-- Don&apos;t forget to register the view controller as the datasource and delegate </span>
+        tableView.delegate = <span class="hljs-keyword">self</span>        <span class="hljs-comment">// &lt;-- of your table view instance</span>
+    }
+}
+</code></pre>
+<p>That&apos;s it, your <code>POIViewController</code> can handle any instance of the <code>Table View</code> Class! But wait.. <strong>xCode</strong> is now giving me a new error:</p>
+<blockquote>
+<p>Type &apos;POIViewController&apos; does not conform to protocol &apos;UITableViewDataSource&apos;</p>
+</blockquote>
+<p>Remember about required or optional protocol&apos;s methods to implement? Well <code>UITableViewDataSource</code> define some required methods in its protocol: <code>tableView(tableView: UITableView, numberOfRowsInSection section: Int)</code> and <code>tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath)</code></p>
+<p>The first one defines the number or row which must be inserted into our table view. In our case this should be equal to the number of POIs in our <strong>pois array</strong>, add the following to your <code>POIViewController</code>:</p>
+<pre><code class="lang-swift"><span class="hljs-func"><span class="hljs-keyword">func</span> <span class="hljs-title">tableView</span><span class="hljs-params">(tableView: UITableView, numberOfRowsInSection section: Int)</span></span> -&gt; <span class="hljs-type">Int</span> {
+    <span class="hljs-keyword">return</span> poiService.pointsOfInterest.<span class="hljs-built_in">count</span>
+}
+</code></pre>
+<p>The second method defines the design of our cells (which is important and we understand why it is a required method of the protocol), in our case we already &quot;draw&quot; a custom cell with a <strong>title</strong> and <strong>subtitle</strong> in our storyboard remember? Go back to your storyboard and add an identifier to your custom cell in order to point it in your code:</p>
+<p><img src="../illustrations/illustration5.png" alt="illustration5"></p>
+<p>We can now refer to this custom cell with the identifier &quot;poiCell&quot; in our code:</p>
+<pre><code class="lang-swift"><span class="hljs-func"><span class="hljs-keyword">func</span> <span class="hljs-title">tableView</span><span class="hljs-params">(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath)</span></span> -&gt; <span class="hljs-type">UITableViewCell</span> {
+    <span class="hljs-keyword">let</span> cell = tableView.dequeueReusableCellWithIdentifier(<span class="hljs-string">&quot;poiCell&quot;</span>, forIndexPath: indexPath)
+
+    <span class="hljs-keyword">let</span> poi = poiService.pointsOfInterest[indexPath.row]
+
+    cell.textLabel?.text = poi.title
+    cell.detailTextLabel?.text = poi.subtitle
+
+    <span class="hljs-keyword">return</span> cell
+}
+</code></pre>
+<ul>
+<li>We refer to our custom cell in the storyboard</li>
+<li>We bind the value of each element of the <strong>pois array</strong> to our cell&apos;s components</li>
+</ul>
+<p>But the <strong>table view</strong> protocol is much more powerful, Apple&apos;s developers defined tons of methods you can implement to customize your table view. We can for example, define the event when a cell of the <strong>table view</strong> is selected through the <code>tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)</code> delegate method:</p>
+<pre><code class="lang-swift"><span class="hljs-func"><span class="hljs-keyword">func</span> <span class="hljs-title">tableView</span><span class="hljs-params">(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)</span></span>
+{
+    <span class="hljs-type">NSLog</span>(<span class="hljs-string">&quot;The cell at this index <span class="hljs-subst">\(indexPath.row)</span> has been selected!&quot;</span>)
+}
+</code></pre>
+<p>This is awesome! We can even combine the protocol&apos;s method of the <strong>table view</strong> delegate and the <strong>map view</strong> delegate:</p>
+<pre><code class="lang-swift"><span class="hljs-keyword">import</span> UIKit
+<span class="hljs-keyword">import</span> MapKit
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">POIViewController</span>: <span class="hljs-title">UIViewController</span>, <span class="hljs-title">UITableViewDataSource</span>, <span class="hljs-title">UITableViewDelegate</span>, <span class="hljs-title">MKMapViewDelegate</span> </span>{    <span class="hljs-comment">// &lt;- map view delegation protocol</span>
+    <span class="hljs-preprocessor">@IBOutlet</span> <span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> mapView: <span class="hljs-type">MKMapView</span>!
+    <span class="hljs-preprocessor">@IBOutlet</span> <span class="hljs-keyword">weak</span> <span class="hljs-keyword">var</span> tableView: <span class="hljs-type">UITableView</span>!
+     ...   
+
+    <span class="hljs-comment">// MARK: - Lifecycle</span>
+
+    <span class="hljs-keyword">override</span> <span class="hljs-func"><span class="hljs-keyword">func</span> <span class="hljs-title">viewDidLoad</span><span class="hljs-params">()</span></span> {
+        <span class="hljs-keyword">super</span>.viewDidLoad()
+
+        <span class="hljs-comment">// Do any additional setup after loading the view.</span>
+        mapView.delegate = <span class="hljs-keyword">self</span>        <span class="hljs-comment">// &lt;-- map view delegate</span>
+        ...
+    }
+
+    <span class="hljs-keyword">override</span> <span class="hljs-func"><span class="hljs-keyword">func</span> <span class="hljs-title">viewDidAppear</span><span class="hljs-params">(animated: Bool)</span></span> {
+        <span class="hljs-keyword">super</span>.viewDidAppear(animated)
+
+        ...
+    }
+
+    <span class="hljs-comment">// MARK: - UITableViewDataSource</span>
+
+    <span class="hljs-func"><span class="hljs-keyword">func</span> <span class="hljs-title">tableView</span><span class="hljs-params">(tableView: UITableView, numberOfRowsInSection section: Int)</span></span> -&gt; <span class="hljs-type">Int</span> {
+        <span class="hljs-keyword">return</span> poiService.pointsOfInterest.<span class="hljs-built_in">count</span>
+    }
+
+    <span class="hljs-func"><span class="hljs-keyword">func</span> <span class="hljs-title">tableView</span><span class="hljs-params">(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath)</span></span> -&gt; <span class="hljs-type">UITableViewCell</span> {
+        ...
+    }
+
+    <span class="hljs-comment">// MARK: - UITableViewDelegate</span>
+
+    <span class="hljs-func"><span class="hljs-keyword">func</span> <span class="hljs-title">tableView</span><span class="hljs-params">(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)</span></span>
+    {
+        <span class="hljs-keyword">let</span> poi = poiService.pointsOfInterest[indexPath.row]
+        mapView.selectAnnotation(poi, animated: <span class="hljs-literal">true</span>)    &lt;-- <span class="hljs-type">Our</span> controller can now interact with the <span class="hljs-built_in">map</span> view through the delegate&apos;s methods
+    }
+}
+</code></pre>
+<p>And we can even do it in the other way, selecting the corresponding line in our <strong>table view</strong> while touching one of the POI on the map:</p>
+<pre><code class="lang-swift"><span class="hljs-func"><span class="hljs-keyword">func</span> <span class="hljs-title">mapView</span><span class="hljs-params">(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView)</span></span> {
+    <span class="hljs-comment">// The annotation of the selected POI can be nil by definition, because it&apos;s an optional</span>
+    <span class="hljs-comment">// So we check if it&apos;s value exist through the guard statement</span>
+    guard <span class="hljs-keyword">let</span> selectedPOI = view.annotation <span class="hljs-keyword">as</span>? <span class="hljs-type">POI</span> <span class="hljs-keyword">else</span> {
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;<span class="hljs-subst">\(<span class="hljs-keyword">__FUNCTION__</span>)</span>: Could not get POI from annotationView.&quot;</span>)
+        <span class="hljs-keyword">return</span>
+    }
+
+    <span class="hljs-comment">// Same here</span>
+    guard <span class="hljs-keyword">let</span> index = poiService.pointsOfInterest.indexOf(selectedPOI) <span class="hljs-keyword">else</span> {
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;<span class="hljs-subst">\(<span class="hljs-keyword">__FUNCTION__</span>)</span>: Could not get index of selected POI&quot;</span>)
+        <span class="hljs-keyword">return</span>
+    }
+
+    <span class="hljs-comment">// We select the coressponding cell</span>
+    <span class="hljs-keyword">let</span> indexPath = <span class="hljs-type">NSIndexPath</span>(forRow: index, inSection: <span class="hljs-number">0</span>)
+    tableView.selectRowAtIndexPath(indexPath, animated: <span class="hljs-literal">true</span>, scrollPosition: .<span class="hljs-type">Top</span>)
+}
+</code></pre>
+<p>Build and run.. your application is running like a charm! </p>
+<p><img src="../illustrations/illustration6.png" alt="illustration6"></p>
+<p>You have learnt some basics about the Interface Builder, how to manage the constraints of your components in your view, how to use the delegation and datasourcing protocol of a Class. Check out the <a href="../part3/intro.html">Code challenge of this first meetup</a> And don&apos;t miss <a href="../part2/snippets.html">the tips from Jeffrey during the presentation</a></p>
+
+                    
+                    </section>
+                
+                
+                </div>
+            </div>
+        </div>
+
+        
+        <a href="../part1/step4.html" class="navigation navigation-prev " aria-label="Previous page: Step 4: Update MapView&#39;s Visible Region"><i class="fa fa-angle-left"></i></a>
+        
+        
+        <a href="../part2/snippets.html" class="navigation navigation-next " aria-label="Next page: How to use snippets with xCode"><i class="fa fa-angle-right"></i></a>
+        
+    </div>
+</div>
+
+        
+<script src="../gitbook/app.js"></script>
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/lunr.min.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-search/search.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-sharing/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-fontsettings/buttons.js"></script>
+    
+
+    
+    <script src="../gitbook/plugins/gitbook-plugin-livereload/plugin.js"></script>
+    
+
+<script>
+require(["gitbook"], function(gitbook) {
+    var config = {"highlight":{},"search":{"maxIndexSize":1000000},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"livereload":{}};
+    gitbook.start(config);
+});
+</script>
+
+        
+    </body>
+    
+</html>
