@@ -79,3 +79,86 @@ So you need to add this key-value to your *Info.plist* file and add a new entry 
 ![illustration7](../art/illustration7.png)
 
 Run the application and accept the request for using your GPS, you should now be able to see your position on the map (At this state, your application has an invisible table view on the bottom part of your map)
+
+### Setting up your map view
+
+We want to connect our "graphic" map view with our controller, here again xCode will help us to make it easier. Switch to the *Assistant Editor* mode; this mode separates the *Code Editor* between 2 distinct editors. The trick here is to display your *Main.storyboard* in one side and your view controller in the other side (you can select the file you want to display in each view by navigating in the top bar). Once you did this, <kbd>CTRL</kbd> + <kbd>DRAG AND DROP</kbd> the map view component from your storyboard to your view controller implementation, just under the class declaration:
+
+![illustration8](../art/illustration8.png)
+
+This will generate a popup for creating a reference of the element in your implementation, select the following options:
+
+* Connection: Outlet
+* Name: mapView
+* Type: MKMapView
+* Storage: Strong
+
+You now have access to your map view, that means you can configure it as you wish. Apple provides *delegate pattern* for managing component such as your map view. Delegating with iOS is really simple:
+
+* Define a delegate for your component (usually we choose the current view controller)
+* Your delegate must register for the corresponding protocol
+* Implement the required methods of the protocol
+
+For your map view, do the following:
+
+* In your `viewDidLoad()`, define the current controller as the delegate of your mapView: `mapView.delegate = self`
+* Register your *POIViewController* to the *MKMapViewDelegate* protocol by adding it right after its declaration
+* Implement the required method (luckily, *MKMapViewDelegate* protocol has only optional methods that we will implement later)
+
+```swift
+class POIViewController: UIViewController, MKMapViewDelegate {
+    // MARK: - Outlets
+    @IBOutlet var mapView: MKMapView!
+    
+    // MARK: - Properties
+    let locationManager = CLLocationManager()
+    
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        locationManager.requestWhenInUseAuthorization()
+
+        mapView.delegate = self
+    }
+}
+```
+
+Let's center our map view on Winnipeg! Create the following `centerMapOnWinnipeg()` method in your file and call it from your `viewDidLoad()`:
+
+```swift
+// MARK: - Lifecycle
+override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    locationManager.requestWhenInUseAuthorization()
+    
+    mapView.delegate = self
+    
+    centerMapOnWinnipeg()
+}
+
+// MARK: - Helpers
+func centerMapOnWinnipeg() {
+    let winnipegCoord = CLLocationCoordinate2D(
+        latitude: 49.8672610886807,
+        longitude: -97.1576372488644
+    )
+    
+    let viewRegion = MKCoordinateRegionMakeWithDistance(
+        winnipegCoord,
+        60000,
+        60000
+    )
+    
+    mapView.setRegion(viewRegion, animated: false)
+}
+```
+
+`setRegion()` method takes a *MKCoordinateRegion* as input, we create it with its custom init method `MKCoordinateRegionMakeWithDistance` by defining:
+
+* A *CLLocationCoordinate2D* which is a 2D coordinate
+* A *CLLocationDistance* for the latitude distance to cover
+* A *CLLocationDistance* for the longitude distance to cover
+
+Here, we define the region of our map view on winnipeg, and we cover 6 kilometers aroung the coordinate.

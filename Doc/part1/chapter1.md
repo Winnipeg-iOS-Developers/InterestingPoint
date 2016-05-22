@@ -74,7 +74,7 @@ In the *Object Library*, select the *Map Kit View*`and <kbd>DRAG & DROP</kbd> it
 
 You can pin a view by <kbd>RIGHT CLICKING</kbd> and dragging it to the view where you want to establish a constraint:
 
-![illustration4](../art/illustration4.gif)
+![illustration4](../art/illustration4.png)
 
 In the *Attributes inpector* of your map view, uncheck everything but the *Zooming*, *Scrolling* and *User Location* options.
 
