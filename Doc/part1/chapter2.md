@@ -118,7 +118,6 @@ class POIViewController: UIViewController, MKMapViewDelegate {
         super.viewDidLoad()
         
         locationManager.requestWhenInUseAuthorization()
-
         mapView.delegate = self
     }
 }
@@ -132,9 +131,7 @@ override func viewDidLoad() {
     super.viewDidLoad()
     
     locationManager.requestWhenInUseAuthorization()
-    
     mapView.delegate = self
-    
     centerMapOnWinnipeg()
 }
 
@@ -144,13 +141,11 @@ func centerMapOnWinnipeg() {
         latitude: 49.8672610886807,
         longitude: -97.1576372488644
     )
-    
     let viewRegion = MKCoordinateRegionMakeWithDistance(
         winnipegCoord,
         60000,
         60000
     )
-    
     mapView.setRegion(viewRegion, animated: false)
 }
 ```
@@ -162,3 +157,37 @@ func centerMapOnWinnipeg() {
 * A *CLLocationDistance* for the longitude distance to cover
 
 Here, we define the region of our map view on winnipeg, and we cover 6 kilometers aroung the coordinate.
+
+### Defining our point of interest model
+
+Your map view has been configured programmatically and visually, you are going to set up some pins on it, but first of all, let's define these pins object. Apple already prepared this work for you, they implemented the *MKAnnotation* protocol which is necessary for fisplaying pins on a map. In your *Model* folder, create a new file "POI.swift" and define your own custom pins which is implementing the *MKAnnotation* protocol:
+
+```swift
+import MapKit
+
+class POI: NSObject, MKAnnotation {
+    var title: String?
+    var subtitle: String?
+    var coordinate: CLLocationCoordinate2D
+    
+    init(
+        title: String?,
+        subtitle: String?,
+        coordinate: CLLocationCoordinate2D)
+    {
+        self.title = title
+        self.subtitle = subtitle
+        self.coordinate = coordinate
+    }
+}
+```
+
+POI is an *NSObject*, according to the documentation:
+
+> NSObject is the root class of most Objective-C class hierarchies. Through NSObject, objects inherit a basic interface to the runtime system and the ability to behave as Objective-C objects.
+
+It also register for the *MKAnnotation* protocol, once again, the documentation define this protocol with a *CLLocationCoordinate2D* coordinate and two optional *String* title and subtitle, all accessible.
+
+Our *POI* class define the optional title and subtitle inherited from the *MKAnnotation* protocol but also its coordinate. And we create an basic initializer for the class.
+
+That's it, we have a custom class which can be used as pins for our map view.
