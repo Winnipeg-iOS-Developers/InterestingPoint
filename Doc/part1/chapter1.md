@@ -35,7 +35,7 @@ The *project navigator* (in the navigator area) provides you a way to organize y
 
 ### Designing with the storyboard
 
-It's time to design our application! We are going to use the built-in storyboard. Select your *Main.storyboard* file in your *project navigator*, the *Editor area* aspect has changed, you are actually in the graphic interface of the storyboard. There are few things to notice about this interface:
+It's time to design our application! We are going to use the built-in *Interface Builder*. Select your *Main.storyboard* file in your *project navigator*, the *Editor area* aspect has changed, you are actually in the *Interface Builder* of the storyboard. There are few things to notice about this interface:
 
 * The *Document Outline* provides you the views hierarchy
 * The *Editor area* is composed by 2 elements:
@@ -94,10 +94,12 @@ And add the following constraints:
 
 Finally (for this part) we are going to set up our *Table View Cells* using the storyboard. In the *Attributes Inspector* of the table view, set the  *Prototype Cells* number to *1* (this will create a prototype cell in the *graphic area*) and set the *Background* color of the *View* to *Clear Color* (which corresponds to transparent). In the *Size Inspector*, extend the height of the table view rows to *80*. Select the cell embedded in the table view, and set its *Background* color to *Clear Color* as well. Finish your design by selecting *Subtitle* for the *Style* of your table view cell (in the *Attributes Inspector*) this will add two labels "Title" and "Subtitle" to the cell content.
 
-At this point, xCode should be warning you that any prototype cell must have reuse identifier. It must be set in the *Attributes Inspector*, set the *Identifier* value to "poiCell".
+xCode should be warning you that any prototype cell must have reuse identifier. It must be set in the *Attributes Inspector*, set the *Identifier* value to "poiCell".
 
 That's it. Congratulation! You designed the main view of your application with almost no code thanks to the hard work of the Apple developers!
 
 The following screenshot is my *Document Outline* at this state:
 
 ![illustration5](../art/illustration5.png)
+
+At this point, if you run the application, you should have a crash.. don't worry, we will deal with it in the next chapter.
