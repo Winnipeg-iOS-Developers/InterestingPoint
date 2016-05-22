@@ -8,7 +8,7 @@ This Meetup group has 3 goals:
 2. Improve existing iOS developers' skills through knowledge sharing. 
 3. Facilitate project collaboration between Developers, Designers, Producers, Creators, etc.
 
-It's totally open and feel free to join us if you didn't!
+It's totally open so feel free to join us if you didn't!
 
 Our Github repository is available at this address: [https://github.com/winnipeg-ios-developers](https://github.com/winnipeg-ios-developers).
 
