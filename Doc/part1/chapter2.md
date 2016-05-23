@@ -26,12 +26,9 @@ Let's start by adding the basic method of any view controller to your *POIViewCo
 import UIKit
 
 class POIViewController: UIViewController {
-
     // MARK: - Lifecycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 }
 ```
@@ -51,14 +48,12 @@ Then, you have to declare an instance of *CLLocationManager* and use this instan
 
 ```swift
 class POIViewController: UIViewController {
-    
     // MARK: - Properties
     let locationManager = CLLocationManager()
-    
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         locationManager.requestWhenInUseAuthorization()
     }
 }
@@ -109,14 +104,13 @@ For your map view, do the following:
 class POIViewController: UIViewController, MKMapViewDelegate {
     // MARK: - Outlets
     @IBOutlet var mapView: MKMapView!
-    
+
     // MARK: - Properties
     let locationManager = CLLocationManager()
-    
+
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         locationManager.requestWhenInUseAuthorization()
         mapView.delegate = self
     }
@@ -129,7 +123,6 @@ Let's center our map view on Winnipeg! Create the following `centerMapOnWinnipeg
 // MARK: - Lifecycle
 override func viewDidLoad() {
     super.viewDidLoad()
-    
     locationManager.requestWhenInUseAuthorization()
     mapView.delegate = self
     centerMapOnWinnipeg()
@@ -169,7 +162,6 @@ class POI: NSObject, MKAnnotation {
     var title: String?
     var subtitle: String?
     var coordinate: CLLocationCoordinate2D
-    
     init(
         title: String?,
         subtitle: String?,
@@ -203,7 +195,6 @@ import CoreLocation
 
 class POIService {
     static let sharedInstance = POIService()
-    
     lazy var pointsOfInterest: Array<POI> = {
         return [
             POI(
@@ -261,7 +252,6 @@ We can now inject this service dependency in our *POIViewController*:
 class POIViewController: UIViewController, MKMapViewDelegate {
     // MARK: - Dependencies
     var poiService = POIService.sharedInstance
-    
     [...]
 }
 ```
@@ -280,21 +270,15 @@ The built-in table view is similar to the map view: it use the *delegate pattern
 class POIViewController: UIViewController, MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate {
 	override func viewDidLoad() {
 	    super.viewDidLoad()
-
 	    // Do any additional setup after loading the view.
 	    locationManager.requestWhenInUseAuthorization()
-	    
 	    mapView.delegate = self
-	    
 	    centerMapOnWinnipeg()
-	    
 	    setupTableView()
 	}
-
 	func setupTableView() {
 	    tableView.delegate = self
 	    tableView.dataSource = self
-	    
 	    // Blur tableView background (optional)
 	    let visualEffect = UIBlurEffect(style: .Light)
 	    let visualEffectView = UIVisualEffectView(effect: visualEffect)
@@ -322,12 +306,9 @@ Well, Apple implemented a system to improve the memory management of its devices
 ```swift
 func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("poiCell", forIndexPath: indexPath)
-    
     let poi = poiService.pointsOfInterest[indexPath.row]
-    
     cell.textLabel?.text = poi.title
     cell.detailTextLabel?.text = poi.subtitle
-    
     return cell
 }
 ```
@@ -335,3 +316,63 @@ func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexP
 Run your application, the table view is now displaying the 5 point of interests:
 
 ![illustration10](../art/illustration10.png)
+
+### Displaying the pins on the map
+
+So now that our service is providing *POI data*, the table view list them, we want our map view to show them as well.
+
+Create a method `displayPOIAnnotationsOnMap()` which is displaying the element of our *POIService.sharedInstance* as annotations on the map and call it in your *viewDidLoad()`:
+
+```swift
+// MARK: - Lifecycle
+override func viewDidLoad() {
+    super.viewDidLoad()
+    locationManager.requestWhenInUseAuthorization()
+    mapView.delegate = self
+    centerMapOnWinnipeg()
+    setupTableView()
+    displayPOIAnnotationsOnMap()
+}
+
+func displayPOIAnnotationsOnMap() {
+    // Get POIs
+    let pois = poiService.pointsOfInterest
+    // Add annotations to map
+    mapView.showAnnotations(pois, animated: true)
+}
+```
+
+If you run the application, you will notice that our map view is centering on Winnipeg but without taking in consideration the part of the screen hidden by the table view. We can fix this by adding a bottom margin to our map view:
+
+```swift
+// MARK: - Lifecycle
+override func viewDidLoad() {
+    super.viewDidLoad()
+    [...]
+    displayPOIAnnotationsOnMap()
+    setupMapView()
+}
+
+func setupMapView() {
+	mapView.layoutMargins.bottom = tableView.frame.height
+}
+```
+
+Now, you can see that the centering animation isn't really smooth. This is because we are running all our methods in the `viewDidLoad()` method. When we call `centerMapOnWinnipeg()` the map is actually centering itself on Winnipeg, then `displayPOIAnnotationsOnMap()` is positioning the map to provide a maximum of point of the array provided and finally `setupMapView()` is adding a bottom margin to our map view. The trick here is to delay our methods. We can call them from `viewDidAppear()` for example, to be sure that the animation occur when the view has been displayed:
+
+```swift
+// MARK: - Lifecycle
+override func viewDidLoad() {
+    super.viewDidLoad()
+    locationManager.requestWhenInUseAuthorization()
+    mapView.delegate = self
+    centerMapOnWinnipeg()
+    setupTableView()
+}
+
+override func viewDidAppear(animated: Bool) {
+    super.viewDidAppear(animated)
+    displayPOIAnnotationsOnMap()
+    setupMapView()
+}
+```
