@@ -267,3 +267,71 @@ class POIViewController: UIViewController, MKMapViewDelegate {
 ```
 
 At this state, your application display a map view which is centered on Winnipeg, it also provides a table view which is invisible and empty and finally it provides a persistent array with 5 points of interest. In the next step, we are going to use the *POIService* to fill the table view.
+
+### Setting up your table view
+
+Just like you connected your map view from your storyboard to your *POIViewController* implementation, connect your table view:
+
+![illustration9](../art/illustration9.png)
+
+The built-in table view is similar to the map view: it use the *delegate pattern* and require a delegate and datasource. Set your *POIViewController* as both of them:
+
+```swift
+class POIViewController: UIViewController, MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate {
+	override func viewDidLoad() {
+	    super.viewDidLoad()
+
+	    // Do any additional setup after loading the view.
+	    locationManager.requestWhenInUseAuthorization()
+	    
+	    mapView.delegate = self
+	    
+	    centerMapOnWinnipeg()
+	    
+	    setupTableView()
+	}
+
+	func setupTableView() {
+	    tableView.delegate = self
+	    tableView.dataSource = self
+	    
+	    // Blur tableView background (optional)
+	    let visualEffect = UIBlurEffect(style: .Light)
+	    let visualEffectView = UIVisualEffectView(effect: visualEffect)
+	    tableView.backgroundView = visualEffectView
+	}
+}
+```
+
+The *UITableViewDatasource* protocol has 2 required methods you have to implement in your code (otherwise you won't even be able to compile the package): `tableView(tableView: UITableView, numberOfRowsInSection section: Int)` and `tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell`.
+
+The first one define the number of rows required for each section, in our case we have only one section and we will display as many rows as our service is providing:
+
+```swift
+func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return poiService.pointsOfInterest.count
+}
+```
+
+The second method define the content of each row.
+
+If you followed the first part of this tutorial, xCode was complaining when we created a prototyped cell in the storyboard. the warning was telling us that every prototype cell must have its own identifier, so we gave the "poiCell" identifier without getting more information it.
+
+Well, Apple implemented a system to improve the memory management of its devices. By using identifiers, every cell of a table view can be recycled when the cell is leaving the screen (so when you are scrolling the table view), we will define our row cell as *UITableViewCell* with the identifier we defined for our prototype cell:
+
+```swift
+func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCellWithIdentifier("poiCell", forIndexPath: indexPath)
+    
+    let poi = poiService.pointsOfInterest[indexPath.row]
+    
+    cell.textLabel?.text = poi.title
+    cell.detailTextLabel?.text = poi.subtitle
+    
+    return cell
+}
+```
+
+Run your application, the table view is now displaying the 5 point of interests:
+
+![illustration10](../art/illustration10.png)
