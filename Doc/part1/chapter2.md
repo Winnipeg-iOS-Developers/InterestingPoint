@@ -376,3 +376,19 @@ override func viewDidAppear(animated: Bool) {
     setupMapView()
 }
 ```
+
+### Synchronising the table view and the map view
+
+If you play a little with your application, you will notice that something could be improved. The table view doesn't synchronize with your map view. The ideal case should be that both the table view and the pins on the map view call the same methods... well, we are going to implement this.
+
+Actually when you click on a pin, the map view will be repositioned to be able to display the pin content and then the pin description will appear. Well, since our *POIViewController* is delegating its own map view, let's implement the optional table view delegate `tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)`:
+
+```swift
+// MARK: - UITableViewDelegate
+func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    let poi = poiService.pointsOfInterest[indexPath.row]
+    mapView.selectAnnotation(poi, animated: true)
+}
+```
+
+It's pretty simple: every time we select a row in the table view, we identify the corresponding point of interest and we call `selectAnnotation()` of our map view to simulate a pin selection.
