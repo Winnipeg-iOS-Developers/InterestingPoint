@@ -6,7 +6,7 @@ In this code challenge, you will resolve the issue our first user has met with I
 
 > Dear Winnipeg iOS Developer, I downloaded, installed and tried your new application one week ago. I was quite busy these days and gave it a real try only yesterday. But while running the application, unfortunately, I can't even see my own location on the map and that make it painful when I want to reach one of your points of interest... that would be awesome if you could fix it! Please find enclosed the screenshot from my device:
 
-![illustration8](../illustrations/illustration8.png)
+![illustration15](../art/illustration15.png)
 
 Try to understand what happened to this user and solve this issue by being sure that no more user will report it in the future.
 

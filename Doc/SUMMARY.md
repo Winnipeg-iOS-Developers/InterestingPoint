@@ -12,4 +12,5 @@
 
 ## Code challenge
 
-* [Improving UX with MKMap](part3/intro.md)
+* [Challenge: Improving UX with MKMap](part3/intro.md)
+* [Solution: Improving UX with MKMap](part3/solution.md)
