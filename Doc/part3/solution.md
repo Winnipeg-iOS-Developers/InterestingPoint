@@ -65,4 +65,4 @@ class POIViewController: UIViewController, UITableViewDataSource, UITableViewDel
 
 And the illustration:
 
-![illustration9](../illustrations/illustration9.png)
+![illustration13](../art/illustration13.png)

@@ -360,6 +360,51 @@ class POIViewController: UIViewController, MKMapViewDelegate, UITableViewDataSou
 
 We just implement them so they will pop the view from the pile when the cancel button of the *DelegateVC* is tapped, or save the reload the pin and its corresponding row if the save button has been tapped (because the value may have changed in this case).
 
-At this point, your application is running, you have a list a *POI* displayed on the map and in your tableview, and if tap the information buble, you will be redirected to a detailled view controller where you can update the *POI* informations.
+### Showing direction
+
+This additional part will be really simple but not less interesting. We will be adding a new *Accessory Control* to our pins, this new component will display the direction from the user location to the selected pin.
+
+First, edit the `mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation)` and add the new *Accessory Control*:
+
+```swift
+func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    [...]
+    
+    // Directions Button
+    let leftButton = UIButton(type: .Custom)
+    let image = UIImage(named: "Car Icon")
+    leftButton.setImage(image, forState: .Normal)
+    leftButton.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+    leftButton.tintColor = UIColor.whiteColor()
+    leftButton.backgroundColor = self.view.tintColor
+    annotationView.leftCalloutAccessoryView = leftButton
+}
+```
+
+This code will create a left accessory view which is a square car icon. We will update the `mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl)`, otherwise tapping the new accessory will just open the detailled view controller:
+
+```swift
+func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    let poi = view.annotation as! POI
+    // Directions
+    if control == view.leftCalloutAccessoryView {
+        let placemark = MKPlacemark(
+            coordinate: poi.coordinate,
+            addressDictionary: nil
+        )
+        
+        let mapItem = MKMapItem(placemark: placemark)
+        mapItem.name = poi.title
+        
+        mapItem.openInMapsWithLaunchOptions([MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving])
+    }
+    // DelegationVC
+    [...]
+}
+```
+
+That's it, to display a direction in iOS, you just need to create an instance of an MKMapItem which define the destination and opening your map with the *DirectionsModeDriving*.
+
+At this point, your application is running, you have a list a *POI* displayed on the map and in your tableview, and if tap the information buble, you will be redirected to a detailled view controller where you can update the *POI* informations and if you tap the car icon, you will be redirected to a direction map.
 
 

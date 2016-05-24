@@ -394,3 +394,5 @@ func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSInde
 Every time we select a row in the table view, we identify the corresponding point of interest and we call `selectAnnotation()` on our map view to simulate a pin selection.
 
 In the next chapter, you will learn how to pass your data in a detailled view where it can be updated.
+
+Check out our code challenge [Improving UX with MKMap](part3/intro.md) before going on!

@@ -10,4 +10,4 @@
 
 The following is an illustration of these steps:
 
-![illustration7](../illustrations/illustration7.gif)
+![illustration14](../illustrations/illustration14.gif)
