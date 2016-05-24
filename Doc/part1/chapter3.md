@@ -44,7 +44,9 @@ class SegueVC: UIViewController {
 }
 ```
 
-Once you defined your *SegueVC* controller, you can attribute it to the visual view controller in your storyboard (in the *Attributes Inspector*). Start then by connecting the four components to the code (Pass in *Assistant Editor* and drag and drop them to your controller just below the class declaration):
+Once you defined your *SegueVC* controller, you can attribute it to the visual view controller in your storyboard (in the *Attributes Inspector*).
+
+Once you did it, let's connect the four components to the code (Pass in *Assistant Editor* and drag and drop them to your controller just below the class declaration):
 
 ```swift
 import UIKit
@@ -137,7 +139,7 @@ To configure the *Navigation Button Item* proceed like this:
 
 This action call a method from the root view controller `performSegueWithIdentifier()` which must:
 
-* Have to be defined in the *POIViewController*:
+* Be defined in the *POIViewController*:
 
 ```swift
 @IBAction func unwindToPOIViewController(unwindSegue: UIStoryboardSegue) {
@@ -157,7 +159,7 @@ This action call a method from the root view controller `performSegueWithIdentif
 }
 ```
 
-* Have its identifier defined somewhere on the segues of your storyboards. Select the segue in the storyboard and set it *Identifier* to "unwindToPOIViewController" in the *Attributes Inspector*
+* Have an identifier defined somewhere on the segues of your storyboards: select the segue in the storyboard and set it *Identifier* to "unwindToPOIViewController" in the *Attributes Inspector*
 
 And don't forget to link this method to the "Cancel" bar button in the storyboard with <kbd>CTRL + DRAG</kbd> (for this manipulation, the <kbd>CTRL + DRAG</kbd> must be done from the *cancel button* to the *exit* at the top of the visual view controller and by selecting the corresponding method you previsously implemented).
 
@@ -180,7 +182,7 @@ class DelegationVC: UIViewController {
 ```
 
 * Link your view controller in the storyboard to the new created class (in the *Identity Inspector*)
-* Link the two text fields and the label to your view controller (use the *Assistant Editor* and <kbd>CTRL + DRAG</kbd>)
+* Link the map, the two text fields and the label to your view controller (use the *Assistant Editor* and <kbd>CTRL + DRAG</kbd>)
 * Link the navigation button bar to their action in your code (once again, using <kbd>CTRL + DRAG</kbd>)
 * Finally add the basic needed methods we added to the SegueVC
 
@@ -239,7 +241,7 @@ protocol DelegationVCDelegate {
 }
 ```
 
-This class now have its own protocol. Any class delegating an instance of ou *DelegationVC* will have to implement its methods. Additionally, create a new property *delegate*. Any instance of *DelegationVC* must have its delegate:
+This class now have its own protocol. Any class delegating an instance of our *DelegationVC* will have to implement its methods. Additionally, create a new property *delegate*. Any instance of *DelegationVC* must have its delegate:
 
 ```swift
 var poi: POI!
@@ -282,7 +284,7 @@ That's it for this class. That was a lot of code, let summarize what we did:
 * We implemented a protocol for our *DelegationVC* this protocol expose 2 methods `delegationVCDidCancel()` and `delegationVCDidSave()`
 * The navigation button bar called the protocol method when tapped
 
-We now have to create an instance of this new *DelegationClass* when a pin of our *POIViewController* is tapped.
+We now have to create an instance of this new *DelegationVC* Class when a pin of our *POIViewController* is tapped.
 
 In your *POIViewController*, add an information accessory to the pins of the map view:
 
@@ -403,7 +405,7 @@ func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutA
 }
 ```
 
-That's it, to display a direction in iOS, you just need to create an instance of an MKMapItem which define the destination and opening your map with the *DirectionsModeDriving*.
+That's it, to display a direction in iOS, you just need to create an instance of an MKMapItem which define the destination.
 
 At this point, your application is running, you have a list a *POI* displayed on the map and in your tableview, and if tap the information buble, you will be redirected to a detailled view controller where you can update the *POI* informations and if you tap the car icon, you will be redirected to a direction map.
 

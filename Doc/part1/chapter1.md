@@ -35,7 +35,7 @@ The *project navigator* (in the navigator area) provides you a way to organize y
 
 ### Designing with the storyboard
 
-It's time to design our application! We are going to use the built-in *Interface Builder*. Select your *Main.storyboard* file in your *project navigator*, the *Editor area* aspect has changed, you are actually in the *Interface Builder* of the storyboard. There are few things to notice about this interface:
+It's time to design our application! We are going to use the built-in *Interface Builder*. Select your *Main.storyboard* file in your *project navigator*: the *Editor area* aspect has changed, you are actually in the *Interface Builder* of the storyboard. There are few things to notice about this interface:
 
 * The *Document Outline* provides you the views hierarchy
 * The *Editor area* is composed of 2 elements:
