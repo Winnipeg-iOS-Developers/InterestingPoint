@@ -2,7 +2,7 @@
 
 ### Additional requirement for the built-in map view
 
-At this point, if you are running the applicaiton, xCode should be reporting the following error:
+At this point, if you are running the application, xCode should be reporting the following error:
 
 > Terminating app due to uncaught exception 'NSInvalidUnarchiveOperationException', reason: 'Could not instantiate class named MKMapView'
 
