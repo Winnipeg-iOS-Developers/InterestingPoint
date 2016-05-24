@@ -160,3 +160,206 @@ This action call a method from the root view controller `performSegueWithIdentif
 * Have its identifier defined somewhere on the segues of your storyboards. Select the segue in the storyboard and set it *Identifier* to "unwindToPOIViewController" in the *Attributes Inspector*
 
 And don't forget to link this method to the "Cancel" bar button in the storyboard with <kbd>CTRL + DRAG</kbd> (for this manipulation, the <kbd>CTRL + DRAG</kbd> must be done from the *cancel button* to the *exit* at the top of the visual view controller and by selecting the corresponding method you previsously implemented).
+
+### Delegation pattern
+
+In this party, we will connect the *accessory contorl* of our pin on the map to the detailled view controller. The simpler way would be to connect it via the *segueVC* we implemented, but for the purpose of this tutorial we will implement another way to connect view controllers between them via the *delegation pattern*.
+
+First of all, go to your *Main.storyboard* and create a new detailled view controller embedded in a *Navigation Controller* which is a copy of the one we did in the previous part (be sure to modify the background color of the background view in the *Attributes Inspector* so you can make the difference while running the application)
+
+![illustration12](../art/illustration12.png)
+
+Implement the corresponding view controller: 
+
+* Create a new swift file called *DelegationVC.swift*
+
+```swift
+class DelegationVC: UIViewController {
+
+}
+```
+
+* Link your view controller in the storyboard to the new created class (in the *Identity Inspector*)
+* Link the two text fields and the label to your view controller (use the *Assistant Editor* and <kbd>CTRL + DRAG</kbd>)
+* Link the navigation button bar to their action in your code (once again, using <kbd>CTRL + DRAG</kbd>)
+* Finally add the basic needed methods we added to the SegueVC
+
+```swift
+class DelegationVC: UIViewController, MKMapViewDelegate {
+    // MARK: - Outlets
+    @IBOutlet var mapView: MKMapView!
+    @IBOutlet var titleTextField: UITextField!
+    @IBOutlet var subtitleTextField: UITextField!
+    @IBOutlet var coordinateLabel: UILabel!
+    
+    // MARK: - Properties
+    var poi: POI!
+    
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        validateDependencies()
+        configureMapView()
+        setLabels()
+    }
+    
+    // MARK: - Helpers
+    func validateDependencies() {
+        guard poi != nil else {
+            fatalError("\(self.dynamicType) did not meet poi dependency.")
+        }
+    }
+    func configureMapView() {
+        mapView.delegate = self
+        mapView.showAnnotations([poi], animated: false)
+    }
+    func setLabels() {
+        titleTextField.text = poi.title
+        subtitleTextField.text = poi.subtitle
+        coordinateLabel.text = "\(poi.coordinate.latitude), \(poi.coordinate.longitude)"
+    }
+    
+    // MARK: - Actions
+    @IBAction func cancelTapped(sender: AnyObject) {
+        // Exit the view
+    }
+    @IBAction func saveTapped(sender: AnyObject) {
+        // Save values and exit the view
+    }
+}
+```
+
+We now need to define a delegate protocol which gonna create the relationship between the *POIViewController* and the *DelegateVC* (so we can inject the poi data). To define a protocol, use the *protocol* keyword, add the following code to the top of your *DelegationVC.swift* (just after the import statements):
+
+```swift
+protocol DelegationVCDelegate {
+    func delegationVCDidCancel(delegationVC: DelegationVC)
+    func delegationVCDidSave(delegationVC: DelegationVC)
+}
+```
+
+This class now have its own protocol. Any class delegating an instance of ou *DelegationVC* will have to implement its methods. Additionally, create a new property *delegate*. Any instance of *DelegationVC* must have its delegate:
+
+```swift
+var poi: POI!
+// delegate definition
+var delegate: DelegationVCDelegate!
+
+[...]
+
+func validateDependencies() {
+    ...
+    // delegate is required
+    guard delegate != nil else {
+        fatalError("\(self.dynamicType) did not meet delegate dependency.")
+    }
+}
+```
+
+And finally, we pass the delegation methods to our `cancelTapped()` and `saveTapped()` methods:
+
+```swift
+// MARK: - Actions
+@IBAction func cancelTapped(sender: AnyObject) {
+    delegate.delegationVCDidCancel(self)
+}
+
+@IBAction func saveTapped(sender: AnyObject) {
+    poi.title = self.titleTextField.text
+    poi.subtitle = self.subtitleTextField.text
+    
+    delegate.delegationVCDidSave(self)
+}
+```
+
+That's it for this class. That was a lot of code, let summarize what we did:
+
+* We designed the detailled view controller in the storyboard
+* We defined a new controller *DelegationVC* and we associated it to the detailled view controller in the storyboard
+* We connected the components of the view to our controller
+* We configured the different element of the view in our controller lyfe cycle
+* We implemented a protocol for our *DelegationVC* this protocol expose 2 methods `delegationVCDidCancel()` and `delegationVCDidSave()`
+* The navigation button bar called the protocol method when tapped
+
+We now have to create an instance of this new *DelegationClass* when a pin of our *POIViewController* is tapped.
+
+In your *POIViewController*, add an information accessory to the pins of the map view:
+
+```swift
+// MARK: - MKMapViewDelegate
+func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    // Return nil (default) for all annotations which are not POIs. i.e. MKUserLocation
+    guard annotation is POI else { return nil }
+    
+    // Memory optimization
+    let reuseIdentifier = "pinAnnotationView"
+    let annotationView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseIdentifier) as? MKPinAnnotationView ??
+        MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+    annotationView.canShowCallout = true
+    
+    // Info Button
+    let rightButton = UIButton(type: .DetailDisclosure)
+    annotationView.rightCalloutAccessoryView = rightButton
+    
+    return annotationView
+}
+```
+
+The *MKMapViewDelegate protocol* already includes a method for managing the event of tapping an accessory's pin, `mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl)`:
+
+```swift
+func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+    let poi = view.annotation as! POI
+    
+    // DelegationVC
+    if control == view.rightCalloutAccessoryView {
+        // Instantiate view controller from storyboard.
+        let storyboard = UIStoryboard(name: "Main", bundle: nil )
+        let navController = storyboard.instantiateViewControllerWithIdentifier(
+            "DelegationNC") as! UINavigationController
+        
+        // TODO: Configure DelegationVC before presenting.
+        let delegationVC = navController.topViewController as! DelegationVC
+        
+        delegationVC.poi = poi
+        delegationVC.delegate = self
+        
+        // Present as modal
+        presentViewController(navController, animated: true, completion: nil)
+    }
+}
+```
+
+and because your are setting the *POIViewController* as the delegate of your *DelegationVC* instance, don't forget to register for its protocol:
+
+```swift
+class POIViewController: UIViewController, MKMapViewDelegate, UITableViewDataSource, UITableViewDelegate, DelegationVCDelegate {
+	[...]
+
+	// MARK: DelegationVCDelegate
+    func delegationVCDidCancel(delegationVC: DelegationVC) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    func delegationVCDidSave(delegationVC: DelegationVC) {
+        let poi = delegationVC.poi
+        // MapView annotation
+        mapView.deselectAnnotation(poi, animated: false)
+        mapView.selectAnnotation(poi, animated: false)
+        
+        // TableView row
+        if let index = poiService.pointsOfInterest.indexOf(poi) {
+            let indexPath = NSIndexPath(forRow: index, inSection: 0)
+            tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+        }
+        
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+}
+```
+
+We just implement them so they will pop the view from the pile when the cancel button of the *DelegateVC* is tapped, or save the reload the pin and its corresponding row if the save button has been tapped (because the value may have changed in this case).
+
+At this point, your application is running, you have a list a *POI* displayed on the map and in your tableview, and if tap the information buble, you will be redirected to a detailled view controller where you can update the *POI* informations.
+
+
