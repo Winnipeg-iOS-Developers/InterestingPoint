@@ -1,18 +1,16 @@
 # Summary
 
-### Part I: The project
+## The book
 
-* [Step 1: Layout Map UI in IB](part1/step1.md)
-* [Step 2: Show Pins on the Map](part1/step2.md)
-* [Step 3: Add UITableView to UI in IB](part1/step3.md)
-* [Step 4: Update MapView's Visible Region](part1/step4.md)
-* [Step 5: Show POIs in TableView](part1/step5.md)
+* [Chapter I: Designing our application with xCode](part1/chapter1.md)
+* [Chapter II: Implementing the main view of your application](part1/chapter2.md)
+* [Chapter III: Implementing a detailled view controller](part1/chapter3.md)
 
-### Part II: Some tips
+## Tips
 
 * [How to use snippets with xCode](part2/snippets.md)
 
-### Part III: Code Challenge!
+## Code challenge
 
-* [Your challenge](part3/intro.md)
-* [The solution](part3/solution.md)
+* [Challenge: Improving UX with MKMap](part3/intro.md)
+* [Solution: Improving UX with MKMap](part3/solution.md)

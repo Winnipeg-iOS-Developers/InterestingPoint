@@ -1,20 +1,23 @@
-# Summary
+This ebook will be updated with the Winnipeg iOS developers group meeting.
 
-This is a summary of the first [Winnipeg iOS Developer meetup](http://www.meetup.com/Winnipeg-iOS-Developers/members/52765062/).
+[Winnipeg iOS Developers]() is a community of people passionate about building software on iOS, watchOS, and tvOS.
 
-###### Part I: The project
+This Meetup group has 3 goals:
 
-* [Step 1: Layout Map UI in IB](part1/step1.md)
-* [Step 2: Show Pins on the Map](part1/step2.md)
-* [Step 3: Add UITableView to UI in IB](part1/step3.md)
-* [Step 4: Update MapView's Visible Region](part1/step4.md)
-* [Step 5: Show POIs in TableView](part1/step5.md)
+1. Introduce new developers to the world of iOS development.
+2. Improve existing iOS developers' skills through knowledge sharing. 
+3. Facilitate project collaboration between Developers, Designers, Producers, Creators, etc.
 
-###### Part II: Some tips
+It's totally open so feel free to join us if you didn't!
 
-* [How to use snippets with xCode](part2/snippets.md)
+Our Github repository is available at this address: [https://github.com/winnipeg-ios-developers](https://github.com/winnipeg-ios-developers).
 
-###### Part III: Code Challenge!
+And the screencasts of our presentations here: [https://vimeo.com/groups/winnipegiosdevelopers](https://vimeo.com/groups/winnipegiosdevelopers).
 
-* [Your challenge](part3/intro.md)
-* [The solution](part3/solution.md)
+This ebook will lead you through our location-based app displaying points of interest.
+
+These meetings and this book can be thanks to the support of our sponsors:
+
+* [New Media Manitoba](https://newmediamanitoba.com/)
+* [Red River College](http://rrc.ca/)
+* [With The Best](http://swift.withthebest.com/)

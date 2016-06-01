@@ -7,7 +7,3 @@
 3. Drag the selected code to the `Code Snippet Library`
 4. Edit the created snippet and add a `Completion shortcut`
 5. Start typing your shortcut anywhere in your code and xCode will display the snippet
-
-The following is an illustration of these steps:
-
-![illustration7](../illustrations/illustration7.gif)
