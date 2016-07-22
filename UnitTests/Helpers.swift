@@ -1,34 +1,18 @@
 //
-//  UnitTests.swift
-//  UnitTests
+//  Helpers.swift
+//  InterestingPoint
 //
 //  Created by Jeffrey Fulton on 2016-07-22.
 //  Copyright © 2016 Jeffrey Fulton. All rights reserved.
 //
 
-import XCTest
-import CoreLocation
 @testable import InterestingPoint
+import CoreLocation
 
-class UnitTests: XCTestCase {
-    
-    // MARK: - Lifecycle
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
-    }
-    
-    // MARK: - Tests
-    
-    func testPOIsCanBeOrderedByPromixityToLocation() {
-        // Input
-        let unsortedPOIs = [
+struct Helpers {
+    /// Returns a new Array of POI objects.
+    static func unsortedPOIs() -> [POI] {
+        return [
             POI(
                 title: "Biff's Bagels",
                 subtitle: "2nd row in tableview",
@@ -54,15 +38,10 @@ class UnitTests: XCTestCase {
                 )
             )
         ]
-        
-        // User Location
-        let location = CLLocation(
-            latitude: 49.85827,
-            longitude: -97.157637
-        )
-        
-        // Expected
-        let expected = [
+    }
+    
+    static func sortedPOIs() -> [POI] {
+        return [
             POI(
                 title: "Angel's Avocados (Nearest)",
                 subtitle: "1st row in tableview",
@@ -88,19 +67,5 @@ class UnitTests: XCTestCase {
                 )
             )
         ]
-        
-        // Actual
-        let actual = unsortedPOIs.ordered(byProximityTo: location)
-        
-        // Assert
-        XCTAssertEqual(expected, actual)
     }
-    
-//    func testPerformanceExample() {
-//        // This is an example of a performance test case.
-//        self.measureBlock {
-//            // Put the code you want to measure the time of here.
-//        }
-//    }
-    
 }

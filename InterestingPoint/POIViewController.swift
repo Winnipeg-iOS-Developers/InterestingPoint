@@ -140,7 +140,7 @@ class POIViewController: UIViewController,
     func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
         // Get pois sorted by proximity to user location.
         guard let location = userLocation.location else { return }
-        pois = poiService.pointsOfInterestOrderedByProximity(to: location)
+        pois = pois.ordered(byProximityTo: location)
         
         // Update UI
         updateUI()

@@ -15,6 +15,8 @@
 		004187A81C88DE9300CAEFFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 004187A71C88DE9300CAEFFD /* Assets.xcassets */; };
 		004187AB1C88DE9300CAEFFD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 004187A91C88DE9300CAEFFD /* LaunchScreen.storyboard */; };
 		0084E5DF1D426B2B0036210D /* UnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E5DE1D426B2B0036210D /* UnitTests.swift */; };
+		0084E5E81D4291760036210D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E5E71D4291760036210D /* Extensions.swift */; };
+		0084E5EA1D42AB3E0036210D /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E5E91D42AB3E0036210D /* Helpers.swift */; };
 		00A6DC2D1CEE6B24009DB2B4 /* DelegationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A6DC2C1CEE6B24009DB2B4 /* DelegationVC.swift */; };
 		00A6DC2F1CEE6B34009DB2B4 /* SegueVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A6DC2E1CEE6B34009DB2B4 /* SegueVC.swift */; };
 /* End PBXBuildFile section */
@@ -42,6 +44,8 @@
 		0084E5DC1D426B2B0036210D /* UnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0084E5DE1D426B2B0036210D /* UnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitTests.swift; sourceTree = "<group>"; };
 		0084E5E01D426B2B0036210D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0084E5E71D4291760036210D /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		0084E5E91D42AB3E0036210D /* Helpers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		00A6DC2C1CEE6B24009DB2B4 /* DelegationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegationVC.swift; sourceTree = "<group>"; };
 		00A6DC2E1CEE6B34009DB2B4 /* SegueVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -133,6 +137,7 @@
 				000E212D1C8B89BA008259E3 /* View */,
 				000E212C1C8B89B4008259E3 /* Controller */,
 				000E212B1C8B89AD008259E3 /* Service */,
+				0084E5E61D4290FA0036210D /* Global */,
 				000E212E1C8B89C2008259E3 /* Support */,
 			);
 			path = InterestingPoint;
@@ -143,8 +148,17 @@
 			children = (
 				0084E5DE1D426B2B0036210D /* UnitTests.swift */,
 				0084E5E01D426B2B0036210D /* Info.plist */,
+				0084E5E91D42AB3E0036210D /* Helpers.swift */,
 			);
 			path = UnitTests;
+			sourceTree = "<group>";
+		};
+		0084E5E61D4290FA0036210D /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				0084E5E71D4291760036210D /* Extensions.swift */,
+			);
+			name = Global;
 			sourceTree = "<group>";
 		};
 		00A6DC301CEE71B6009DB2B4 /* POIDetails */ = {
@@ -268,6 +282,7 @@
 				00A6DC2D1CEE6B24009DB2B4 /* DelegationVC.swift in Sources */,
 				000E21281C8B89A3008259E3 /* POI.swift in Sources */,
 				004187A11C88DE9300CAEFFD /* AppDelegate.swift in Sources */,
+				0084E5E81D4291760036210D /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -276,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0084E5DF1D426B2B0036210D /* UnitTests.swift in Sources */,
+				0084E5EA1D42AB3E0036210D /* Helpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

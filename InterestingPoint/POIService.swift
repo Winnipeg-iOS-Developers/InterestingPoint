@@ -23,7 +23,7 @@ class POIService {
             ),
             POI(
                 title: "Biff's Bagels",
-                subtitle: "??? row in tableview",
+                subtitle: "2nd row in tableview",
                 coordinate: CLLocationCoordinate2D(
                     latitude: 49.893413,
                     longitude: -97.174958
@@ -31,7 +31,7 @@ class POIService {
             ),
             POI(
                 title: "Cathy's Cupcakes (Farthest)",
-                subtitle: "Last row in tableview",
+                subtitle: "5th row in tableview",
                 coordinate: CLLocationCoordinate2D(
                     latitude: 49.9508672072522,
                     longitude: -97.2422074558971
@@ -39,7 +39,7 @@ class POIService {
             ),
             POI(
                 title: "Darlene's Dumplings",
-                subtitle: "??? row in tableview",
+                subtitle: "4th row in tableview",
                 coordinate: CLLocationCoordinate2D(
                     latitude: 49.8716259581715,
                     longitude: -97.0682061864028
@@ -47,7 +47,7 @@ class POIService {
             ),
             POI(
                 title: "Ernest's Enchiladas",
-                subtitle: "??? row in tableview",
+                subtitle: "3rd row in tableview",
                 coordinate: CLLocationCoordinate2D(
                     latitude: 49.8141108489216,
                     longitude: -97.1298990909147
@@ -55,16 +55,4 @@ class POIService {
             )
         ]
     }()
-    
-    
-    /// Return Array of POIs sorted by accending proximity to location param.
-    func pointsOfInterestOrderedByProximity(to location: CLLocation) -> [POI] {
-        return pointsOfInterest.sort { (first, second) in
-            return location.distanceFromLocation(first.location) < location.distanceFromLocation(second.location)
-        }
-    }
 }
-
-
-
-
