@@ -136,8 +136,6 @@ class POIViewController: UIViewController,
         
         annotationView.canShowCallout = true
         
-        // TODO: Add Directions button
-        
         // Directions Button
         let leftButton = UIButton(type: .Custom)
         let image = UIImage(named: "Car Icon")
@@ -169,9 +167,9 @@ class POIViewController: UIViewController,
         annotationView view: MKAnnotationView,
         calloutAccessoryControlTapped control: UIControl)
     {
-        // TODO: Take separate actions for left & right accessory controls.
-        
         let poi = view.annotation as! POI
+        
+        // Take separate actions for left & right accessory controls.
         
         // Directions
         if control == view.leftCalloutAccessoryView {
@@ -185,7 +183,7 @@ class POIViewController: UIViewController,
             let navController = storyboard.instantiateViewControllerWithIdentifier(
                 "DelegationNC") as! UINavigationController
             
-            // TODO: Configure DelegationVC before presenting.
+            // Configure DelegationVC before presenting.
             let delegationVC = navController.topViewController as! DelegationVC
             
             delegationVC.poi = poi
