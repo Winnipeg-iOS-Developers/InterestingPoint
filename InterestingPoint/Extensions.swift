@@ -17,4 +17,60 @@ extension SequenceType where Generator.Element == POI {
             return location.distanceFromLocation(first.location) < location.distanceFromLocation(second.location)
         }
     }
+    
+    // Returns Array of POIs ordered by the shortest possible route which connects all pois starting from location parameter.
+    func ordered(byShortestRouteToEachPOIStartingFrom location: CLLocation) -> [POI] {
+        
+        // Calculate each possible route, appending total distance to array.
+        let sorted = permutations.sort { (first, second) in
+            return first.totalDistance(startingFrom: location) < second.totalDistance(startingFrom: location)
+        }
+        
+        // Return first or empty array.
+        return sorted.first ?? [POI]()
+    }
+    
+    func totalDistance(startingFrom startingLocation: CLLocation) -> CLLocationDistance {
+        var totalDistance: CLLocationDistance = 0.0
+        
+        // Start from passed in location
+        var previousLocation = startingLocation
+        
+        // Add distance between each location and previous location to totalDistance.
+        for poi in self {
+            totalDistance += previousLocation.distanceFromLocation(poi.location)
+            previousLocation = poi.location
+        }
+        
+        return totalDistance
+    }
+}
+
+extension SequenceType {
+    /// Returns array of all possible order permutations.
+    var permutations: Array<[Generator.Element]> {
+        var scratch = Array(self) // This is a scratch space for Heap's algorithm
+        var result = Array<[Generator.Element]>() // This will accumulate our result
+        
+        // Heap's algorithm
+        func heap(n: Int) {
+            if n == 1 {
+                result.append(scratch)
+                return
+            }
+            
+            for i in 0..<n-1 {
+                heap(n-1)
+                let j = (n%2 == 1) ? 0 : i
+                swap(&scratch[j], &scratch[n-1])
+            }
+            heap(n-1)
+        }
+        
+        // Let's get started
+        heap(scratch.count)
+        
+        // And return the result we built up
+        return result
+    }
 }

@@ -107,7 +107,25 @@ class POIViewController: UIViewController,
     
     func updateUI() {
         displayPOIAnnotationsOnMap()
+        drawRouteOverlaysOnMap()
         tableView.reloadData()
+    }
+    
+    func drawRouteOverlaysOnMap() {
+        // Remove existing overlays
+        mapView.removeOverlays(mapView.overlays)
+        
+        // Get array of coordinates from POIs
+        var coordinates = pois.map { $0.coordinate }
+        
+        // Add UserLocation coordinate if available.
+        if let userLocationCoordinate = mapView.userLocation.location?.coordinate {
+            coordinates.insert(userLocationCoordinate, atIndex: 0)
+        }
+        
+        // Add coordinates as MKPolyline overlay
+        let overlay = MKPolyline(coordinates: &coordinates, count: coordinates.count)
+        mapView.addOverlay(overlay, level: .AboveRoads)
     }
 
     // MARK: - UITableViewDataSource
@@ -140,7 +158,10 @@ class POIViewController: UIViewController,
     func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
         // Get pois sorted by proximity to user location.
         guard let location = userLocation.location else { return }
-        pois = pois.ordered(byProximityTo: location)
+//        pois = pois.ordered(byProximityTo: location)
+        
+        // Get pois sorted by shortest route from current location to all POIs
+        pois = pois.ordered(byShortestRouteToEachPOIStartingFrom: location)
         
         // Update UI
         updateUI()
@@ -213,6 +234,12 @@ class POIViewController: UIViewController,
             // Present as modal
             presentViewController(navController, animated: true, completion: nil)
         }
+    }
+    
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+        let lineView = MKPolylineRenderer(overlay: overlay)
+        lineView.strokeColor = .greenColor()
+        return lineView
     }
     
     // MARK: DelegationVCDelegate

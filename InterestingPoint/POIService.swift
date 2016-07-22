@@ -14,8 +14,8 @@ class POIService {
     lazy var pointsOfInterest: Array<POI> = {
         return [
             POI(
-                title: "Angel's Avocados (Nearest)",
-                subtitle: "1st row in tableview",
+                title: "Angel's Avocados",
+                subtitle: "No one's avocados are as nice as Angel's!",
                 coordinate: CLLocationCoordinate2D(
                     latitude: 49.8519574378154,
                     longitude: -97.2117918551222
@@ -23,15 +23,23 @@ class POIService {
             ),
             POI(
                 title: "Biff's Bagels",
-                subtitle: "2nd row in tableview",
+                subtitle: "Best bagels in town!",
                 coordinate: CLLocationCoordinate2D(
                     latitude: 49.893413,
                     longitude: -97.174958
                 )
             ),
             POI(
-                title: "Cathy's Cupcakes (Farthest)",
-                subtitle: "5th row in tableview",
+                title: "Ernest's Enchiladas",
+                subtitle: "Enchilada Extravaganza!",
+                coordinate: CLLocationCoordinate2D(
+                    latitude: 49.8141108489216,
+                    longitude: -97.1298990909147
+                )
+            ),
+            POI(
+                title: "Cathy's Cupcakes",
+                subtitle: "Cathy puts the cup in cupcake!",
                 coordinate: CLLocationCoordinate2D(
                     latitude: 49.9508672072522,
                     longitude: -97.2422074558971
@@ -39,18 +47,10 @@ class POIService {
             ),
             POI(
                 title: "Darlene's Dumplings",
-                subtitle: "4th row in tableview",
+                subtitle: "Down right delicious Dumplings!",
                 coordinate: CLLocationCoordinate2D(
                     latitude: 49.8716259581715,
                     longitude: -97.0682061864028
-                )
-            ),
-            POI(
-                title: "Ernest's Enchiladas",
-                subtitle: "3rd row in tableview",
-                coordinate: CLLocationCoordinate2D(
-                    latitude: 49.8141108489216,
-                    longitude: -97.1298990909147
                 )
             )
         ]
