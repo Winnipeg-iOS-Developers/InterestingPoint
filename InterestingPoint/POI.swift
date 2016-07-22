@@ -22,4 +22,11 @@ class POI: NSObject, MKAnnotation {
         self.subtitle = subtitle
         self.coordinate = coordinate
     }
+    
+    // MARK: - Computed Properties
+    
+    /// POIs coodinates as a CLLocation object. Used for convenience in sorting functions.
+    var location: CLLocation {
+        return CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+    }
 }

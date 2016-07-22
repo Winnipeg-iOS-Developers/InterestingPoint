@@ -68,6 +68,9 @@ class POIViewController: UIViewController,
     }
     
     func displayPOIAnnotationsOnMap() {
+        // Remove existing annotations
+        mapView.removeAnnotations(mapView.annotations)
+        
         // Add annotations to map
         mapView.showAnnotations(pois, animated: true)
     }
@@ -90,7 +93,7 @@ class POIViewController: UIViewController,
         pois = poiService.pointsOfInterest
     }
     
-    func reloadUIForPOI(poi: POI) {
+    func updateUIForPOI(poi: POI) {
         // MapView annotation
         mapView.deselectAnnotation(poi, animated: false)
         mapView.selectAnnotation(poi, animated: false)
@@ -100,6 +103,11 @@ class POIViewController: UIViewController,
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
             tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
         }
+    }
+    
+    func updateUI() {
+        displayPOIAnnotationsOnMap()
+        tableView.reloadData()
     }
 
     // MARK: - UITableViewDataSource
@@ -128,6 +136,15 @@ class POIViewController: UIViewController,
     }
     
     // MARK: - MKMapViewDelegate
+    
+    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+        // Get pois sorted by proximity to user location.
+        guard let location = userLocation.location else { return }
+        pois = poiService.pointsOfInterestOrderedByProximity(to: location)
+        
+        // Update UI
+        updateUI()
+    }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         // Return nil (default) for all annotations which are not POIs. i.e. MKUserLocation
@@ -206,7 +223,7 @@ class POIViewController: UIViewController,
     
     func delegationVCDidSave(delegationVC: DelegationVC) {
         let poi = delegationVC.poi
-        reloadUIForPOI(poi)
+        updateUIForPOI(poi)
         
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -228,7 +245,7 @@ class POIViewController: UIViewController,
     @IBAction func unwindToPOIViewController(unwindSegue: UIStoryboardSegue) {
         if let segueVC = unwindSegue.sourceViewController as? SegueVC {
             let poi = segueVC.poi
-            reloadUIForPOI(poi)
+            updateUIForPOI(poi)
         }
     }
     

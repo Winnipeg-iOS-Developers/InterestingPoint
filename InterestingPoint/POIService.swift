@@ -14,7 +14,7 @@ class POIService {
     lazy var pointsOfInterest: Array<POI> = {
         return [
             POI(
-                title: "First (Nearest)",
+                title: "Angel's Avocados (Nearest)",
                 subtitle: "1st row in tableview",
                 coordinate: CLLocationCoordinate2D(
                     latitude: 49.8519574378154,
@@ -22,15 +22,15 @@ class POIService {
                 )
             ),
             POI(
-                title: "Second",
+                title: "Biff's Bagels",
                 subtitle: "??? row in tableview",
                 coordinate: CLLocationCoordinate2D(
-                    latitude: 49.9040656356851,
-                    longitude: -97.1168358331907
+                    latitude: 49.893413,
+                    longitude: -97.174958
                 )
             ),
             POI(
-                title: "Third (Farthest)",
+                title: "Cathy's Cupcakes (Farthest)",
                 subtitle: "Last row in tableview",
                 coordinate: CLLocationCoordinate2D(
                     latitude: 49.9508672072522,
@@ -38,7 +38,7 @@ class POIService {
                 )
             ),
             POI(
-                title: "Fourth",
+                title: "Darlene's Dumplings",
                 subtitle: "??? row in tableview",
                 coordinate: CLLocationCoordinate2D(
                     latitude: 49.8716259581715,
@@ -46,7 +46,7 @@ class POIService {
                 )
             ),
             POI(
-                title: "Fifth",
+                title: "Ernest's Enchiladas",
                 subtitle: "??? row in tableview",
                 coordinate: CLLocationCoordinate2D(
                     latitude: 49.8141108489216,
@@ -55,4 +55,16 @@ class POIService {
             )
         ]
     }()
+    
+    
+    /// Return Array of POIs sorted by accending proximity to location param.
+    func pointsOfInterestOrderedByProximity(to location: CLLocation) -> [POI] {
+        return pointsOfInterest.sort { (first, second) in
+            return location.distanceFromLocation(first.location) < location.distanceFromLocation(second.location)
+        }
+    }
 }
+
+
+
+
