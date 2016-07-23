@@ -60,7 +60,7 @@ class POIViewControllerTests: XCTestCase {
         let _ = poiViewController.view
         
         // Delay Assertion to allow async fetch to complete, should only take 1 tick of the run loop; which is why a delay of 0.0 works.
-        delay(inSeconds: 0.1) {
+        delay(inSeconds: 1.0) {
             // Assertions
             XCTAssertEqual(expected, self.poiViewController.pois)
             expectation.fulfill()
@@ -109,7 +109,11 @@ class POIViewControllerTests: XCTestCase {
         let _ = poiViewController.view
         
         // Delay Assertion to allow async fetch to complete, should only take 1 tick of the run loop; which is why a delay of 0.0 works.
-        delay(inSeconds: 0.1) {
+        delay(inSeconds: 1.0) {
+            
+            // Defer blocks are run as soon as execution exits this scope.
+            defer { expectation.fulfill() }
+            
             // Assertions
             XCTAssertNotNil(mockAlertProvider.errorPresented)
             
@@ -128,8 +132,6 @@ class POIViewControllerTests: XCTestCase {
             }
             
             XCTAssertEqual(self.poiViewController, actualViewController)
-            
-            expectation.fulfill()
         }
         
         waitForExpectationsWithTimeout(3, handler: nil)
