@@ -16,7 +16,8 @@ class POIViewController: UIViewController,
     DelegationVCDelegate
 {
     // MARK: - Dependencies
-    var poiService = POIService.sharedInstance
+    var alertProvider: AlertProvider = AlertService.sharedInstance
+    var poiProvider: PoiProvider = PoiService.sharedInstance
     
     // MARK: - Outlets
     @IBOutlet weak var mapView: MKMapView!
@@ -24,6 +25,7 @@ class POIViewController: UIViewController,
     
     // MARK: - Properties
     let locationManager = CLLocationManager()
+    var pois = [POI]()
 
     // MARK: - Lifecycle
     
@@ -38,6 +40,8 @@ class POIViewController: UIViewController,
         centerMapOnWinnipeg()
         
         setupTableView()
+        
+        reloadPOIsFromDataSource()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -65,8 +69,8 @@ class POIViewController: UIViewController,
     }
     
     func displayPOIAnnotationsOnMap() {
-        // Get POIs
-        let pois = poiService.pointsOfInterest
+        // Remove existing annotations
+        mapView.removeAnnotations(mapView.annotations)
         
         // Add annotations to map
         mapView.showAnnotations(pois, animated: true)
@@ -86,28 +90,66 @@ class POIViewController: UIViewController,
         mapView.layoutMargins.bottom = tableView.frame.height
     }
     
-    func reloadUIForPOI(poi: POI) {
+    func reloadPOIsFromDataSource() {
+        // Fetch POIs asynchronously from Network or Disk.
+        poiProvider.fetchPOIs(queue: .mainQueue()) { (result) in
+            // Switch on result enumeration; Error or POIs are accessed via Swift enum associated values.
+            switch result {
+            case .failure(let error):
+                // Display error in AlertView via alertProvider
+                self.alertProvider.present(error, from: self)
+                
+            case .success(let pois):
+                self.pois = pois
+            }
+        }
+    }
+    
+    func updateUIForPOI(poi: POI) {
         // MapView annotation
         mapView.deselectAnnotation(poi, animated: false)
         mapView.selectAnnotation(poi, animated: false)
         
         // TableView row
-        if let index = poiService.pointsOfInterest.indexOf(poi) {
+        if let index = pois.indexOf(poi) {
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
             tableView.reloadRowsAtIndexPaths([indexPath], withRowAnimation: .None)
         }
+    }
+    
+    func updateUI() {
+        displayPOIAnnotationsOnMap()
+        drawRouteOverlaysOnMap()
+        tableView.reloadData()
+    }
+    
+    func drawRouteOverlaysOnMap() {
+        // Remove existing overlays
+        mapView.removeOverlays(mapView.overlays)
+        
+        // Get array of coordinates from POIs
+        var coordinates = pois.map { $0.coordinate }
+        
+        // Add UserLocation coordinate if available.
+        if let userLocationCoordinate = mapView.userLocation.location?.coordinate {
+            coordinates.insert(userLocationCoordinate, atIndex: 0)
+        }
+        
+        // Add coordinates as MKPolyline overlay
+        let overlay = MKPolyline(coordinates: &coordinates, count: coordinates.count)
+        mapView.addOverlay(overlay, level: .AboveRoads)
     }
 
     // MARK: - UITableViewDataSource
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return poiService.pointsOfInterest.count
+        return pois.count
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("poiCell", forIndexPath: indexPath)
         
-        let poi = poiService.pointsOfInterest[indexPath.row]
+        let poi = pois[indexPath.row]
         
         cell.textLabel?.text = poi.title
         cell.detailTextLabel?.text = poi.subtitle
@@ -119,11 +161,28 @@ class POIViewController: UIViewController,
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        let poi = poiService.pointsOfInterest[indexPath.row]
+        let poi = pois[indexPath.row]
         mapView.selectAnnotation(poi, animated: true)
     }
     
     // MARK: - MKMapViewDelegate
+    
+    func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
+        // Get pois sorted by proximity to user location.
+        guard let location = userLocation.location else { return }
+        
+        // Sort by proximity to current location.
+        pois = pois.ordered(byProximityTo: location)
+        
+        // Sort by shortest route from current location to all POIs.
+//        pois = pois.ordered(byShortestRouteToEachPOIStartingFrom: location)
+        
+        // Get pois sorted by nearest neighbour alogrithm.
+//        pois = pois.ordered(byNearestNeighbourStartingFrom: location)
+        
+        // Update UI
+        updateUI()
+    }
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         // Return nil (default) for all annotations which are not POIs. i.e. MKUserLocation
@@ -135,8 +194,6 @@ class POIViewController: UIViewController,
             MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
         
         annotationView.canShowCallout = true
-        
-        // TODO: Add Directions button
         
         // Directions Button
         let leftButton = UIButton(type: .Custom)
@@ -157,11 +214,11 @@ class POIViewController: UIViewController,
     
     func mapView(mapView: MKMapView, didSelectAnnotationView view: MKAnnotationView) {
         guard let selectedPOI = view.annotation as? POI else { return }
-        guard let index = poiService.pointsOfInterest.indexOf(selectedPOI) else { return }
+        guard let index = pois.indexOf(selectedPOI) else { return }
     
         // Select cell at index
         let indexPath = NSIndexPath(forRow: index, inSection: 0)
-        tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: .Top)
+        tableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: .Middle)
     }
     
     func mapView(
@@ -169,9 +226,9 @@ class POIViewController: UIViewController,
         annotationView view: MKAnnotationView,
         calloutAccessoryControlTapped control: UIControl)
     {
-        // TODO: Take separate actions for left & right accessory controls.
-        
         let poi = view.annotation as! POI
+        
+        // Take separate actions for left & right accessory controls.
         
         // Directions
         if control == view.leftCalloutAccessoryView {
@@ -185,7 +242,7 @@ class POIViewController: UIViewController,
             let navController = storyboard.instantiateViewControllerWithIdentifier(
                 "DelegationNC") as! UINavigationController
             
-            // TODO: Configure DelegationVC before presenting.
+            // Configure DelegationVC before presenting.
             let delegationVC = navController.topViewController as! DelegationVC
             
             delegationVC.poi = poi
@@ -196,7 +253,13 @@ class POIViewController: UIViewController,
         }
     }
     
-    // MARK: DelegationVCDelegate
+    func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+        let lineView = MKPolylineRenderer(overlay: overlay)
+        lineView.strokeColor = .blueColor()
+        return lineView
+    }
+    
+    // MARK: - DelegationVCDelegate
     
     func delegationVCDidCancel(delegationVC: DelegationVC) {
         dismissViewControllerAnimated(true, completion: nil)
@@ -204,7 +267,7 @@ class POIViewController: UIViewController,
     
     func delegationVCDidSave(delegationVC: DelegationVC) {
         let poi = delegationVC.poi
-        reloadUIForPOI(poi)
+        updateUIForPOI(poi)
         
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -218,7 +281,7 @@ class POIViewController: UIViewController,
             let selectedCell = sender as! UITableViewCell
             let selectedIndexPath = tableView.indexPathForCell(selectedCell)!
             
-            let poi = poiService.pointsOfInterest[selectedIndexPath.row]
+            let poi = pois[selectedIndexPath.row]
             segueVC.poi = poi
         }
     }
@@ -226,7 +289,7 @@ class POIViewController: UIViewController,
     @IBAction func unwindToPOIViewController(unwindSegue: UIStoryboardSegue) {
         if let segueVC = unwindSegue.sourceViewController as? SegueVC {
             let poi = segueVC.poi
-            reloadUIForPOI(poi)
+            updateUIForPOI(poi)
         }
     }
     
