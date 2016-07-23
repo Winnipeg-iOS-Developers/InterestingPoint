@@ -1,15 +1,14 @@
 //
-//  TestHelper.swift
+//  SeedData.swift
 //  InterestingPoint
 //
-//  Created by Jeffrey Fulton on 2016-07-22.
+//  Created by Jeffrey Fulton on 2016-07-23.
 //  Copyright © 2016 Jeffrey Fulton. All rights reserved.
 //
 
-@testable import InterestingPoint
 import CoreLocation
 
-struct TestHelper {
+struct SeedData {
     
     /// Return new Array of test POIs.
     static func makePois() -> [POI] {

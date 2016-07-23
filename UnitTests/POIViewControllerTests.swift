@@ -38,7 +38,7 @@ class POIViewControllerTests: XCTestCase {
     }
     
     func testPoisAreLoadedFromPoiProviderOnViewDidLoad() {
-        let expected = TestHelper.makePois()
+        let expected = SeedData.makePois()
         
         // Create and assign mock PoiProvider.
         struct MockPoiProvider: PoiProvider {
@@ -60,13 +60,13 @@ class POIViewControllerTests: XCTestCase {
         let _ = poiViewController.view
         
         // Delay Assertion to allow async fetch to complete, should only take 1 tick of the run loop; which is why a delay of 0.0 works.
-        delay(inSeconds: 0.0) {
+        delay(inSeconds: 0.1) {
             // Assertions
             XCTAssertEqual(expected, self.poiViewController.pois)
             expectation.fulfill()
         }
         
-        waitForExpectationsWithTimeout(1, handler: nil)
+        waitForExpectationsWithTimeout(5, handler: nil)
     }
     
     
@@ -109,7 +109,7 @@ class POIViewControllerTests: XCTestCase {
         let _ = poiViewController.view
         
         // Delay Assertion to allow async fetch to complete, should only take 1 tick of the run loop; which is why a delay of 0.0 works.
-        delay(inSeconds: 0.0) {
+        delay(inSeconds: 0.1) {
             // Assertions
             XCTAssertNotNil(mockAlertProvider.errorPresented)
             
@@ -132,6 +132,6 @@ class POIViewControllerTests: XCTestCase {
             expectation.fulfill()
         }
         
-        waitForExpectationsWithTimeout(1, handler: nil)
+        waitForExpectationsWithTimeout(3, handler: nil)
     }
 }

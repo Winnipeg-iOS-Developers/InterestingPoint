@@ -24,8 +24,8 @@ class UnitTests: XCTestCase {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         
-        pois = TestHelper.makePois()
-        location = TestHelper.makeLocation()
+        pois = SeedData.makePois()
+        location = SeedData.makeLocation()
     }
     
     override func tearDown() {
@@ -40,11 +40,11 @@ class UnitTests: XCTestCase {
         
         // Expected
         let expected = [
-            TestHelper.makeAngelsPOI(),
-            TestHelper.makeBiffsPOI(),
-            TestHelper.makeErnestsPOI(),
-            TestHelper.makeDarlenesPOI(),
-            TestHelper.makeCathysPOI()
+            SeedData.makeAngelsPOI(),
+            SeedData.makeBiffsPOI(),
+            SeedData.makeErnestsPOI(),
+            SeedData.makeDarlenesPOI(),
+            SeedData.makeCathysPOI()
         ]
         
         // Actual
@@ -60,11 +60,11 @@ class UnitTests: XCTestCase {
         
         // Expected
         let expected = [
-            TestHelper.makeDarlenesPOI(),
-            TestHelper.makeErnestsPOI(),
-            TestHelper.makeAngelsPOI(),
-            TestHelper.makeBiffsPOI(),
-            TestHelper.makeCathysPOI()
+            SeedData.makeDarlenesPOI(),
+            SeedData.makeErnestsPOI(),
+            SeedData.makeAngelsPOI(),
+            SeedData.makeBiffsPOI(),
+            SeedData.makeCathysPOI()
         ]
         
         // Actual
@@ -78,7 +78,7 @@ class UnitTests: XCTestCase {
     // MARK: - Performance Tests
     
     func testPerformanceOfOrderByShortestRoute() {
-        let randomPOIs = TestHelper.makeRandomPOIs(count: 5)
+        let randomPOIs = SeedData.makeRandomPOIs(count: 5)
         
         self.measureBlock {
             // Put the code you want to measure the time of here.
@@ -87,7 +87,7 @@ class UnitTests: XCTestCase {
     }
     
     func testPerformanceOfOrderByNearestNeighbour() {
-        let randomPOIs = TestHelper.makeRandomPOIs(count: 100)
+        let randomPOIs = SeedData.makeRandomPOIs(count: 100)
         
         self.measureBlock {
             // Put the code you want to measure the time of here.
@@ -102,11 +102,11 @@ class UnitTests: XCTestCase {
         
         // Expected result
         let expected = [
-            TestHelper.makeDarlenesPOI(),
-            TestHelper.makeErnestsPOI(),
-            TestHelper.makeAngelsPOI(),
-            TestHelper.makeBiffsPOI(),
-            TestHelper.makeCathysPOI()
+            SeedData.makeDarlenesPOI(),
+            SeedData.makeErnestsPOI(),
+            SeedData.makeAngelsPOI(),
+            SeedData.makeBiffsPOI(),
+            SeedData.makeCathysPOI()
         ]
         
         // Create an XCTestExpectation in order to run test asynchronously.
@@ -126,6 +126,6 @@ class UnitTests: XCTestCase {
             expectation.fulfill()
         }
         
-        waitForExpectationsWithTimeout(3, handler: nil)
+        waitForExpectationsWithTimeout(5, handler: nil)
     }
 }

@@ -16,12 +16,11 @@
 		004187AB1C88DE9300CAEFFD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 004187A91C88DE9300CAEFFD /* LaunchScreen.storyboard */; };
 		0084E5DF1D426B2B0036210D /* UnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E5DE1D426B2B0036210D /* UnitTests.swift */; };
 		0084E5E81D4291760036210D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E5E71D4291760036210D /* Extensions.swift */; };
-		0084E5EC1D42E9E70036210D /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E5EB1D42E9E70036210D /* TestHelper.swift */; };
 		0084E5EE1D4309270036210D /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E5ED1D4309270036210D /* Functions.swift */; };
-		0084E5EF1D4309A90036210D /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E5EB1D42E9E70036210D /* TestHelper.swift */; };
 		0084E5F11D430BA70036210D /* Enumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E5F01D430BA70036210D /* Enumerations.swift */; };
 		0084E5F31D431E9E0036210D /* AlertProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E5F21D431E9E0036210D /* AlertProvider.swift */; };
 		0084E5F51D43221E0036210D /* POIViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E5F41D43221E0036210D /* POIViewControllerTests.swift */; };
+		0084E5F71D4346350036210D /* SeedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E5F61D4346350036210D /* SeedData.swift */; };
 		00A6DC2D1CEE6B24009DB2B4 /* DelegationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A6DC2C1CEE6B24009DB2B4 /* DelegationVC.swift */; };
 		00A6DC2F1CEE6B34009DB2B4 /* SegueVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A6DC2E1CEE6B34009DB2B4 /* SegueVC.swift */; };
 /* End PBXBuildFile section */
@@ -50,11 +49,11 @@
 		0084E5DE1D426B2B0036210D /* UnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnitTests.swift; sourceTree = "<group>"; };
 		0084E5E01D426B2B0036210D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0084E5E71D4291760036210D /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		0084E5EB1D42E9E70036210D /* TestHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 		0084E5ED1D4309270036210D /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		0084E5F01D430BA70036210D /* Enumerations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enumerations.swift; sourceTree = "<group>"; };
 		0084E5F21D431E9E0036210D /* AlertProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertProvider.swift; sourceTree = "<group>"; };
 		0084E5F41D43221E0036210D /* POIViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POIViewControllerTests.swift; sourceTree = "<group>"; };
+		0084E5F61D4346350036210D /* SeedData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeedData.swift; sourceTree = "<group>"; };
 		00A6DC2C1CEE6B24009DB2B4 /* DelegationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegationVC.swift; sourceTree = "<group>"; };
 		00A6DC2E1CEE6B34009DB2B4 /* SegueVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -117,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				004187AC1C88DE9300CAEFFD /* Info.plist */,
+				0084E5F61D4346350036210D /* SeedData.swift */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -158,7 +158,6 @@
 			children = (
 				0084E5DE1D426B2B0036210D /* UnitTests.swift */,
 				0084E5F41D43221E0036210D /* POIViewControllerTests.swift */,
-				0084E5EB1D42E9E70036210D /* TestHelper.swift */,
 				0084E5E01D426B2B0036210D /* Info.plist */,
 			);
 			path = UnitTests;
@@ -296,8 +295,8 @@
 				0084E5EE1D4309270036210D /* Functions.swift in Sources */,
 				00A6DC2D1CEE6B24009DB2B4 /* DelegationVC.swift in Sources */,
 				000E21281C8B89A3008259E3 /* POI.swift in Sources */,
-				0084E5EF1D4309A90036210D /* TestHelper.swift in Sources */,
 				004187A11C88DE9300CAEFFD /* AppDelegate.swift in Sources */,
+				0084E5F71D4346350036210D /* SeedData.swift in Sources */,
 				0084E5E81D4291760036210D /* Extensions.swift in Sources */,
 				0084E5F31D431E9E0036210D /* AlertProvider.swift in Sources */,
 			);
@@ -309,7 +308,6 @@
 			files = (
 				0084E5DF1D426B2B0036210D /* UnitTests.swift in Sources */,
 				0084E5F51D43221E0036210D /* POIViewControllerTests.swift in Sources */,
-				0084E5EC1D42E9E70036210D /* TestHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

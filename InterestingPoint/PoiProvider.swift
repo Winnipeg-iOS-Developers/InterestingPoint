@@ -26,7 +26,7 @@ class PoiService: PoiProvider {
         
         // Simulate network or disk I/O lag, then return results via completion handler.
         delay(inSeconds: 1) {
-            let pois = TestHelper.makePois()
+            let pois = SeedData.makePois()
             let result = Result.success(pois)
             queue.addOperationWithBlock { completion(result) }
         }
