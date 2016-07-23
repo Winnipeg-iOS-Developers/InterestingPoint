@@ -4,6 +4,9 @@ A location-based app written in Swift 2.0 for iOS 9 as part of a beginners serie
 
 __*NOTE*__: The following steps are not meant to be a full tutorial as I'm lazy and not going to put that much time in... These are simply my presentation notes which require a fair amount of iOS/Xcode knowledge to follow. I will gladly accept any pull request updating this to a proper tutorial. :)
 
+#### Master branch build status:
+[![Build Status](https://travis-ci.org/Winnipeg-iOS-Developers/InterestingPoint.svg?branch=master)](https://travis-ci.org/Winnipeg-iOS-Developers/InterestingPoint)
+
 ## Part 1: Getting started
 
 ### What our App will do:
