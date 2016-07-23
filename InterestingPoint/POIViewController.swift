@@ -16,7 +16,8 @@ class POIViewController: UIViewController,
     DelegationVCDelegate
 {
     // MARK: - Dependencies
-    var poiService = POIService.sharedInstance
+    var alertProvider: AlertProvider = AlertService.sharedInstance
+    var poiProvider: PoiProvider = PoiService.sharedInstance
     
     // MARK: - Outlets
     @IBOutlet weak var mapView: MKMapView!
@@ -91,12 +92,13 @@ class POIViewController: UIViewController,
     
     func reloadPOIsFromDataSource() {
         // Fetch POIs asynchronously from Network or Disk.
-        poiService.fetchPOIs(queue: .mainQueue()) { (result) in
+        poiProvider.fetchPOIs(queue: .mainQueue()) { (result) in
             // Switch on result enumeration; Error or POIs are accessed via Swift enum associated values.
             switch result {
             case .failure(let error):
-                // TODO: Implement REAL error handling!
-                print(error)
+                // Display error in AlertView via alertProvider
+                self.alertProvider.present(error, from: self)
+                
             case .success(let pois):
                 self.pois = pois
             }

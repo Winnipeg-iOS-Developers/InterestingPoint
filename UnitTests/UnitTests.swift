@@ -128,5 +128,4 @@ class UnitTests: XCTestCase {
         
         waitForExpectationsWithTimeout(3, handler: nil)
     }
-    
 }

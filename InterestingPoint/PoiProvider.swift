@@ -1,5 +1,5 @@
 //
-//  PointOfInterestService.swift
+//  PoiProvider.swift
 //  InterestingPoint
 //
 //  Created by Jeffrey Fulton on 2016-03-04.
@@ -8,8 +8,17 @@
 
 import CoreLocation
 
-class POIService {
-    static let sharedInstance = POIService()
+/// Define protocol (interface) for providing POIs to application.
+protocol PoiProvider {
+    /// Asynchonously fetch POIs from disk or network which can take multiple seconds to complete.
+    /// Completion handler executes on provided queue.
+    func fetchPOIs(queue queue: NSOperationQueue, completion: (Result<POI>)->())
+}
+
+/// Singleton instance of this class is used as default PoiProvider in ViewControllers, etc.
+class PoiService: PoiProvider {
+    static let sharedInstance = PoiService()
+    private init() {} // Enforces Singleton. No other object can instantiate instances.
     
     /// Asynchonously fetch POIs from disk or network which can take multiple seconds to complete.
     /// Completion handler executes on provided queue.

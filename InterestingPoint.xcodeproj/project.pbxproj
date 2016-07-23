@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		000E21281C8B89A3008259E3 /* POI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000E21261C8B89A3008259E3 /* POI.swift */; };
-		000E21291C8B89A3008259E3 /* POIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000E21271C8B89A3008259E3 /* POIService.swift */; };
+		000E21291C8B89A3008259E3 /* PoiProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000E21271C8B89A3008259E3 /* PoiProvider.swift */; };
 		000E21301C8B89FD008259E3 /* POIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000E212F1C8B89FD008259E3 /* POIViewController.swift */; };
 		004187A11C88DE9300CAEFFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004187A01C88DE9300CAEFFD /* AppDelegate.swift */; };
 		004187A61C88DE9300CAEFFD /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 004187A41C88DE9300CAEFFD /* Main.storyboard */; };
@@ -20,6 +20,8 @@
 		0084E5EE1D4309270036210D /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E5ED1D4309270036210D /* Functions.swift */; };
 		0084E5EF1D4309A90036210D /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E5EB1D42E9E70036210D /* TestHelper.swift */; };
 		0084E5F11D430BA70036210D /* Enumerations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E5F01D430BA70036210D /* Enumerations.swift */; };
+		0084E5F31D431E9E0036210D /* AlertProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E5F21D431E9E0036210D /* AlertProvider.swift */; };
+		0084E5F51D43221E0036210D /* POIViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0084E5F41D43221E0036210D /* POIViewControllerTests.swift */; };
 		00A6DC2D1CEE6B24009DB2B4 /* DelegationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A6DC2C1CEE6B24009DB2B4 /* DelegationVC.swift */; };
 		00A6DC2F1CEE6B34009DB2B4 /* SegueVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A6DC2E1CEE6B34009DB2B4 /* SegueVC.swift */; };
 /* End PBXBuildFile section */
@@ -36,7 +38,7 @@
 
 /* Begin PBXFileReference section */
 		000E21261C8B89A3008259E3 /* POI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POI.swift; sourceTree = "<group>"; };
-		000E21271C8B89A3008259E3 /* POIService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POIService.swift; sourceTree = "<group>"; };
+		000E21271C8B89A3008259E3 /* PoiProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PoiProvider.swift; sourceTree = "<group>"; };
 		000E212F1C8B89FD008259E3 /* POIViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POIViewController.swift; sourceTree = "<group>"; };
 		0041879D1C88DE9300CAEFFD /* InterestingPoint.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InterestingPoint.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		004187A01C88DE9300CAEFFD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -51,6 +53,8 @@
 		0084E5EB1D42E9E70036210D /* TestHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
 		0084E5ED1D4309270036210D /* Functions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		0084E5F01D430BA70036210D /* Enumerations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enumerations.swift; sourceTree = "<group>"; };
+		0084E5F21D431E9E0036210D /* AlertProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertProvider.swift; sourceTree = "<group>"; };
+		0084E5F41D43221E0036210D /* POIViewControllerTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = POIViewControllerTests.swift; sourceTree = "<group>"; };
 		00A6DC2C1CEE6B24009DB2B4 /* DelegationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegationVC.swift; sourceTree = "<group>"; };
 		00A6DC2E1CEE6B34009DB2B4 /* SegueVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SegueVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -81,12 +85,13 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		000E212B1C8B89AD008259E3 /* Service */ = {
+		000E212B1C8B89AD008259E3 /* Provider */ = {
 			isa = PBXGroup;
 			children = (
-				000E21271C8B89A3008259E3 /* POIService.swift */,
+				000E21271C8B89A3008259E3 /* PoiProvider.swift */,
+				0084E5F21D431E9E0036210D /* AlertProvider.swift */,
 			);
-			name = Service;
+			name = Provider;
 			sourceTree = "<group>";
 		};
 		000E212C1C8B89B4008259E3 /* Controller */ = {
@@ -141,7 +146,7 @@
 				000E212A1C8B89A8008259E3 /* Model */,
 				000E212D1C8B89BA008259E3 /* View */,
 				000E212C1C8B89B4008259E3 /* Controller */,
-				000E212B1C8B89AD008259E3 /* Service */,
+				000E212B1C8B89AD008259E3 /* Provider */,
 				0084E5E61D4290FA0036210D /* Global */,
 				000E212E1C8B89C2008259E3 /* Support */,
 			);
@@ -152,8 +157,9 @@
 			isa = PBXGroup;
 			children = (
 				0084E5DE1D426B2B0036210D /* UnitTests.swift */,
-				0084E5E01D426B2B0036210D /* Info.plist */,
+				0084E5F41D43221E0036210D /* POIViewControllerTests.swift */,
 				0084E5EB1D42E9E70036210D /* TestHelper.swift */,
+				0084E5E01D426B2B0036210D /* Info.plist */,
 			);
 			path = UnitTests;
 			sourceTree = "<group>";
@@ -283,7 +289,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				000E21291C8B89A3008259E3 /* POIService.swift in Sources */,
+				000E21291C8B89A3008259E3 /* PoiProvider.swift in Sources */,
 				000E21301C8B89FD008259E3 /* POIViewController.swift in Sources */,
 				00A6DC2F1CEE6B34009DB2B4 /* SegueVC.swift in Sources */,
 				0084E5F11D430BA70036210D /* Enumerations.swift in Sources */,
@@ -293,6 +299,7 @@
 				0084E5EF1D4309A90036210D /* TestHelper.swift in Sources */,
 				004187A11C88DE9300CAEFFD /* AppDelegate.swift in Sources */,
 				0084E5E81D4291760036210D /* Extensions.swift in Sources */,
+				0084E5F31D431E9E0036210D /* AlertProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +308,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0084E5DF1D426B2B0036210D /* UnitTests.swift in Sources */,
+				0084E5F51D43221E0036210D /* POIViewControllerTests.swift in Sources */,
 				0084E5EC1D42E9E70036210D /* TestHelper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
