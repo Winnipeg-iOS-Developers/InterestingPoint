@@ -13,3 +13,7 @@ enum Result<T> {
     case success([T])
 }
 
+enum Error: ErrorType {
+    case UnitTest
+}
+

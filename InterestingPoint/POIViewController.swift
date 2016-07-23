@@ -172,13 +172,13 @@ class POIViewController: UIViewController,
         guard let location = userLocation.location else { return }
         
         // Sort by proximity to current location.
-//        pois = pois.ordered(byProximityTo: location)
+        pois = pois.ordered(byProximityTo: location)
         
         // Sort by shortest route from current location to all POIs.
 //        pois = pois.ordered(byShortestRouteToEachPOIStartingFrom: location)
         
         // Get pois sorted by nearest neighbour alogrithm.
-        pois = pois.ordered(byNearestNeighbourStartingFrom: location)
+//        pois = pois.ordered(byNearestNeighbourStartingFrom: location)
         
         // Update UI
         updateUI()
