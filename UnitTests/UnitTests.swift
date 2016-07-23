@@ -97,6 +97,36 @@ class UnitTests: XCTestCase {
     
     // MARK: - Async Tests
     
-    
+    func testAsyncOrderByShortestRoute() {
+        // Input values are being set in setUp().
+        
+        // Expected result
+        let expected = [
+            TestHelper.makeDarlenesPOI(),
+            TestHelper.makeErnestsPOI(),
+            TestHelper.makeAngelsPOI(),
+            TestHelper.makeBiffsPOI(),
+            TestHelper.makeCathysPOI()
+        ]
+        
+        // Create an XCTestExpectation in order to run test asynchronously.
+        let expectation = expectationWithDescription("Execute completion closure.")
+        
+        // Perform Async operation.
+        pois.ordered(byShortestRouteToEachPOIStartingFrom: location, queue: .mainQueue()) { (result) in
+            switch result {
+            case .failure: XCTFail("Expected success")
+            case .success(let actual):
+                // Assertions
+                XCTAssertNotEqual(self.pois, actual) // Make sure initial values would not pass the test.
+                XCTAssertEqual(expected, actual)
+            }
+            
+            // Fulfill the expectation in order to signal the tests are complete.
+            expectation.fulfill()
+        }
+        
+        waitForExpectationsWithTimeout(3, handler: nil)
+    }
     
 }

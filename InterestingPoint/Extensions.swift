@@ -11,14 +11,14 @@ import CoreLocation
 // Extend only SequenceTypes which contain instances of POI.
 extension SequenceType where Generator.Element == POI {
     
-    // Returns Array of POIs ordered by proximity to location parameter.
+    /// Returns Array of POIs ordered by proximity to location parameter.
     func ordered(byProximityTo location: CLLocation) -> [POI] {
         return self.sort { (first, second) in
             return location.distanceFromLocation(first.location) < location.distanceFromLocation(second.location)
         }
     }
     
-    // Returns Array of POIs ordered by the shortest possible route which connects all pois starting from location parameter.
+    /// Returns Array of POIs ordered by the shortest possible route which connects all pois starting from location parameter.
     func ordered(byShortestRouteToEachPOIStartingFrom location: CLLocation) -> [POI] {
         
         // Calculate all possible permutations, sorting by total distance.
@@ -30,7 +30,20 @@ extension SequenceType where Generator.Element == POI {
         return sorted.first ?? [POI]()
     }
     
-    // Return Array of POIs ordered by the nearest neighbour algorithm.
+    /// Asynchronous version of ordered(byShortestRouteToEach...) function.
+    func ordered(byShortestRouteToEachPOIStartingFrom location: CLLocation, queue: NSOperationQueue, completion: (Result<POI>)->() ) {
+        
+        // Perform work asynchronously on background thread.
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            let pois = self.ordered(byShortestRouteToEachPOIStartingFrom: location)
+            let result = Result.success(pois)
+            
+            // Return result via completion handler on passed in queue.
+            queue.addOperationWithBlock { completion(result) }
+        }
+    }
+    
+    /// Return Array of POIs ordered by the nearest neighbour algorithm.
     func ordered(byNearestNeighbourStartingFrom location: CLLocation) -> [POI] {
         var scratch = Array(self)
         var result = [POI]()
@@ -46,6 +59,8 @@ extension SequenceType where Generator.Element == POI {
         
         return result
     }
+    
+    
     
     func totalDistance(startingFrom startingLocation: CLLocation) -> CLLocationDistance {
         var totalDistance: CLLocationDistance = 0.0

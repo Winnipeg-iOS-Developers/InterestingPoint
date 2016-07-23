@@ -13,7 +13,7 @@ class POIService {
     
     /// Asynchonously fetch POIs from disk or network which can take multiple seconds to complete.
     /// Completion handler executes on provided queue.
-    func fetchPOIs(queue queue: NSOperationQueue, completion: (Result<[POI]>)->()) {
+    func fetchPOIs(queue queue: NSOperationQueue, completion: (Result<POI>)->()) {
         
         // Simulate network or disk I/O lag, then return results via completion handler.
         delay(inSeconds: 1) {

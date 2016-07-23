@@ -8,8 +8,8 @@
 
 import Foundation
 
-enum Result<T: SequenceType> {
+enum Result<T> {
     case failure(ErrorType)
-    case success(T)
+    case success([T])
 }
 

@@ -91,7 +91,7 @@ class POIViewController: UIViewController,
     
     func reloadPOIsFromDataSource() {
         // Fetch POIs asynchronously from Network or Disk.
-        poiService.fetchPOIs(queue: NSOperationQueue.mainQueue()) { (result) in
+        poiService.fetchPOIs(queue: .mainQueue()) { (result) in
             // Switch on result enumeration; Error or POIs are accessed via Swift enum associated values.
             switch result {
             case .failure(let error):
@@ -257,7 +257,7 @@ class POIViewController: UIViewController,
         return lineView
     }
     
-    // MARK: DelegationVCDelegate
+    // MARK: - DelegationVCDelegate
     
     func delegationVCDidCancel(delegationVC: DelegationVC) {
         dismissViewControllerAnimated(true, completion: nil)
