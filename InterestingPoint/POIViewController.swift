@@ -90,7 +90,17 @@ class POIViewController: UIViewController,
     }
     
     func reloadPOIsFromDataSource() {
-        pois = poiService.pointsOfInterest
+        // Fetch POIs asynchronously from Network or Disk.
+        poiService.fetchPOIs(queue: NSOperationQueue.mainQueue()) { (result) in
+            // Switch on result enumeration; Error or POIs are accessed via Swift enum associated values.
+            switch result {
+            case .failure(let error):
+                // TODO: Implement REAL error handling!
+                print(error)
+            case .success(let pois):
+                self.pois = pois
+            }
+        }
     }
     
     func updateUIForPOI(poi: POI) {
@@ -158,10 +168,15 @@ class POIViewController: UIViewController,
     func mapView(mapView: MKMapView, didUpdateUserLocation userLocation: MKUserLocation) {
         // Get pois sorted by proximity to user location.
         guard let location = userLocation.location else { return }
+        
+        // Sort by proximity to current location.
 //        pois = pois.ordered(byProximityTo: location)
         
-        // Get pois sorted by shortest route from current location to all POIs
-        pois = pois.ordered(byShortestRouteToEachPOIStartingFrom: location)
+        // Sort by shortest route from current location to all POIs.
+//        pois = pois.ordered(byShortestRouteToEachPOIStartingFrom: location)
+        
+        // Get pois sorted by nearest neighbour alogrithm.
+        pois = pois.ordered(byNearestNeighbourStartingFrom: location)
         
         // Update UI
         updateUI()
@@ -238,7 +253,7 @@ class POIViewController: UIViewController,
     
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
         let lineView = MKPolylineRenderer(overlay: overlay)
-        lineView.strokeColor = .greenColor()
+        lineView.strokeColor = .blueColor()
         return lineView
     }
     

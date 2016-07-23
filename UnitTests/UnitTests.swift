@@ -12,11 +12,20 @@ import CoreLocation
 
 class UnitTests: XCTestCase {
     
+    // MARK: - Stored Properties
+    
+    // Set default values in setUp()
+    var pois: [POI]!
+    var location: CLLocation!
+    
     // MARK: - Lifecycle
     
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+        pois = TestHelper.makePois()
+        location = TestHelper.makeLocation()
     }
     
     override func tearDown() {
@@ -24,139 +33,38 @@ class UnitTests: XCTestCase {
         super.tearDown()
     }
     
-    // MARK: - Tests
+    // MARK: - Unit Tests
     
     func testPOIsCanBeOrderedByPromixityToLocation() {
-        // Input
-        let unsortedPOIs = [
-            POI(
-                title: "Biff's Bagels",
-                subtitle: "2nd row in tableview",
-                coordinate: CLLocationCoordinate2D(
-                    latitude: 49.893413,
-                    longitude: -97.174958
-                )
-            ),
-            POI(
-                title: "Angel's Avocados (Nearest)",
-                subtitle: "1st row in tableview",
-                coordinate: CLLocationCoordinate2D(
-                    latitude: 49.8519574378154,
-                    longitude: -97.2117918551222
-                )
-            ),
-            POI(
-                title: "Ernest's Enchiladas",
-                subtitle: "3rd row in tableview",
-                coordinate: CLLocationCoordinate2D(
-                    latitude: 49.8141108489216,
-                    longitude: -97.1298990909147
-                )
-            )
-        ]
-        
-        // User Location
-        let location = CLLocation(
-            latitude: 49.85827,
-            longitude: -97.157637
-        )
+        // Input values are being set in setUp().
         
         // Expected
         let expected = [
-            POI(
-                title: "Angel's Avocados (Nearest)",
-                subtitle: "1st row in tableview",
-                coordinate: CLLocationCoordinate2D(
-                    latitude: 49.8519574378154,
-                    longitude: -97.2117918551222
-                )
-            ),
-            POI(
-                title: "Biff's Bagels",
-                subtitle: "2nd row in tableview",
-                coordinate: CLLocationCoordinate2D(
-                    latitude: 49.893413,
-                    longitude: -97.174958
-                )
-            ),
-            POI(
-                title: "Ernest's Enchiladas",
-                subtitle: "3rd row in tableview",
-                coordinate: CLLocationCoordinate2D(
-                    latitude: 49.8141108489216,
-                    longitude: -97.1298990909147
-                )
-            )
+            TestHelper.makeAngelsPOI(),
+            TestHelper.makeBiffsPOI(),
+            TestHelper.makeErnestsPOI(),
+            TestHelper.makeDarlenesPOI(),
+            TestHelper.makeCathysPOI()
         ]
         
         // Actual
-        let actual = unsortedPOIs.ordered(byProximityTo: location)
+        let actual = pois.ordered(byProximityTo: location)
         
-        // Assert
+        // Assertions
+        XCTAssertNotEqual(pois, actual) // Make sure the input doesn't pass the test.
         XCTAssertEqual(expected, actual)
     }
     
     func testPOIsOrderedByShortestRouteFromLocation() {
-        // Input
-        let pois = [
-            POI(
-                title: "Angel's Avocados (Nearest)",
-                subtitle: "Nones avocados are as nice as Angel's!",
-                coordinate: CLLocationCoordinate2D(
-                    latitude: 49.8519574378154,
-                    longitude: -97.2117918551222
-                )
-            ),
-            POI(
-                title: "Biff's Bagels",
-                subtitle: "Best bagels in town!",
-                coordinate: CLLocationCoordinate2D(
-                    latitude: 49.893413,
-                    longitude: -97.174958
-                )
-            ),
-            POI(
-                title: "Ernest's Enchiladas",
-                subtitle: "Enchilada Extravaganza!",
-                coordinate: CLLocationCoordinate2D(
-                    latitude: 49.8141108489216,
-                    longitude: -97.1298990909147
-                )
-            )
-        ]
-        
-        // User Location
-        let location = CLLocation(
-            latitude: 49.85827,
-            longitude: -97.157637
-        )
+        // Input values are being set in setUp().
         
         // Expected
         let expected = [
-            POI(
-                title: "Biff's Bagels",
-                subtitle: "Best bagels in town!",
-                coordinate: CLLocationCoordinate2D(
-                    latitude: 49.893413,
-                    longitude: -97.174958
-                )
-            ),
-            POI(
-                title: "Angel's Avocados (Nearest)",
-                subtitle: "Nones avocados are as nice as Angel's!",
-                coordinate: CLLocationCoordinate2D(
-                    latitude: 49.8519574378154,
-                    longitude: -97.2117918551222
-                )
-            ),
-            POI(
-                title: "Ernest's Enchiladas",
-                subtitle: "Enchilada Extravaganza!",
-                coordinate: CLLocationCoordinate2D(
-                    latitude: 49.8141108489216,
-                    longitude: -97.1298990909147
-                )
-            )
+            TestHelper.makeDarlenesPOI(),
+            TestHelper.makeErnestsPOI(),
+            TestHelper.makeAngelsPOI(),
+            TestHelper.makeBiffsPOI(),
+            TestHelper.makeCathysPOI()
         ]
         
         // Actual
@@ -167,11 +75,28 @@ class UnitTests: XCTestCase {
         XCTAssertEqual(expected, actual)
     }
     
-//    func testPerformanceExample() {
-//        // This is an example of a performance test case.
-//        self.measureBlock {
-//            // Put the code you want to measure the time of here.
-//        }
-//    }
+    // MARK: - Performance Tests
+    
+    func testPerformanceOfOrderByShortestRoute() {
+        let randomPOIs = TestHelper.makeRandomPOIs(count: 5)
+        
+        self.measureBlock {
+            // Put the code you want to measure the time of here.
+            randomPOIs.ordered(byShortestRouteToEachPOIStartingFrom: self.location)
+        }
+    }
+    
+    func testPerformanceOfOrderByNearestNeighbour() {
+        let randomPOIs = TestHelper.makeRandomPOIs(count: 100)
+        
+        self.measureBlock {
+            // Put the code you want to measure the time of here.
+            randomPOIs.ordered(byNearestNeighbourStartingFrom: self.location)
+        }
+    }
+    
+    // MARK: - Async Tests
+    
+    
     
 }
